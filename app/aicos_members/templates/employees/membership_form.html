@@ -1,0 +1,53 @@
+{% import "bootstrap/wtf.html" as wtf %}
+{% import "bootstrap/fixes.html" as fixes %}
+{% import "bootstrap/utils.html" as util %}
+{% extends "members_base.html" %}
+{% block title %} Membership Form {% endblock %}
+{% block body %}
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-8">
+      <div class="card">
+          <div class="card-header bg-light">
+          <div class="row">
+            <div class="col-md-6">
+                <h3>Andika umunyamuryango.</h3>
+            </div>
+            <div class="col-md-6 text-right">
+                <button class="btn btn-outline-info">
+                  <a href="{{ url_for('aicos_members.doimportmbs') }}">
+                <i class="fa fa-upload"> Injiza abahari</i></a></button>
+            </div>
+            </div>
+          </div>
+      <div class="card-body">
+      <br/>
+      <div class="row">
+          <div class="col-md-10">
+          {% if not upload_file %}
+              {{ wtf.quick_form(form, form_type='basic', button_map={'submit': 'info'}) }}
+          {% endif %}    <br>
+          </div>
+      </div>   
+      </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card">
+            <div class="card-header bg-info">
+            <h3 style="color: #fff"><b> Ibyerekeye kwandika umunyamuryango</b></h3>
+            </div>
+            <div class="card-body">
+            <p>Uru ni urupapuro rwo kwinjiza umunyamuryango muri <b> Koperative </b> yamaze kwandikwe muri sisiteme. 
+
+            <br><br>Umunyamuryango ushyizwe muri sisiteme amakuru ye arabikwa muri koperative nawe azajye abona ubutumwe bumureba kubijyanye n'ibikorera muri koperative yinjijwemo. <br><br>
+
+            Niba hari ahandi hari handitswe abanyamuryango muzindi nyandiko, <b> Urugero: </b> Excel, kanda ahanditse 
+            <b>Injiza abahari</b> ukurikize amabwiriza ubundi ushyiremo abanyamuryango bose icyarimwe. <br>
+
+            </div>
+     </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
