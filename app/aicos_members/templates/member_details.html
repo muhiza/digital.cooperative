@@ -25,8 +25,8 @@
                             <img src="https://raw.githubusercontent.com/muhiza/music/master/userProfileFemale%20(1).png">
                         </div>
                         <div class="card-body">
-                        <h3>{{ employee.firstName }} , {{ employee.secondName }} </h3>
-                            Uyu ni umunyamuryango wa cooperative, akaba yitabira gahunda zose za cooperative zirebana n'iterambere rya cooperative mu buryo bwo kwiteza imbere ndetse no kwiteza imbere haba ku giti cye ndetse no ku muryango we n'abandi banyamuryango bafatanya guteza imbere iguhugu.
+                        <h3>{{ employee.izinaRibanza }} , {{ employee.izinaRikurikira }} </h3>
+                            Uyu ni umunyamuryango wa cooperative COOPTHEVIGI.
                         </div>
                     </div>
                 </div>
@@ -39,7 +39,7 @@
                             <a class="nav-link" data-toggle="tab" href="#profile" role="tab" aria-controls="profile">Amakuru y'imyishyurire</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" data-toggle="tab" href="#messages" role="tab" aria-controls="messages">Amakuru y'akazi</a>
+                            <a class="nav-link" data-toggle="tab" href="#messages" role="tab" aria-controls="messages">Amakuru y'umusaruro</a>
                         </li>
                     </ul>
 
@@ -53,75 +53,117 @@
                                     <tbody>
                                       <tr>
                                         <td><b>Izina Ribanza</b></td>
-                                        <td>{{ employee.firstName }}</td>
+                                        <td>{{ employee.izinaRikurikira }}</td>
                                       </tr>
                                       <tr>
                                         <td><b>Izina Rikurikira</b></td>
-                                        <td>{{ employee.secondName }}</td>
+                                        <td>{{ employee.izinaRikurikira }}</td>
                                       </tr>
                                       <tr>
                                         <td><b>Ayandi</b></td>
-                                        <td>{{ employee.others }}</td>
+                                        <td>{{ employee.Ayandi }}</td>
                                       </tr>
-                                    <tr>
-                                        <td><b>Akarere</b></td>
-                                        <td>{{ employee.District }}</td>
-                                      </tr>
+
                                       <tr>
-                                        <td><b>Umurenge</b></td>
-                                        <td>{{ employee.Sector }}</td>
-                                      </tr>
-                                      <tr>
-                                        <td><b>Akagari</b></td>
-                                        <td>{{ employee.Cell }}</td>
+                                        <td><b>Igitsina</b></td>
+                                        <td>{{ employee.Igitsina }}</td>
                                       </tr>
 
                                       <tr>
                                         <td><b>Nimero y'indangamuntu</b></td>
-                                        <td>{{ employee.nId }}</td>
+                                        <td>{{ employee.indangamuntu }}</td>
                                       </tr>
+
+                                      <tr>
+                                        <td><b>Intara</b></td>
+                                        <td>{{ employee.Intara }}</td>
+                                      </tr>
+
+                                      <tr>
+                                        <td><b>Akarere</b></td>
+                                        <td>{{ employee.Akarere }}</td>
+                                      </tr>
+                                      <tr>
+                                        <td><b>Umurenge</b></td>
+                                        <td>{{ employee.Umurenge }}</td>
+                                      </tr>
+
+
+                                      <tr>
+                                        <td><b>Akagari</b></td>
+                                        <td>{{ employee.Akagari }}</td>
+                                      </tr>
+                                      <tr>
+                                        <td><b>Umudugudu</b></td>
+                                        <td>{{ employee.Umudugudu }}</td>
+                                      </tr>
+
                                     <tr>
                                         <td><b>Tariki yinjiriyemo</b></td>
-                                        <td>{{ employee.entryDate }}</td>
+                                        <td>{{ employee.tarikiYinjiriye }}</td>
                                       </tr>
                                       <tr>
                                         <td><b>Umugabane</b></td>
-                                        <td>{{ employee.share }}</td>
+                                        <td>{{ employee.Umugabane }}</td>
                                       </tr>
                                     <tr>
-                                        <td><b>Tariki yasohokeye</b></td>
-                                        <td>{{ employee.exitD }}</td>
-                                      </tr>
-                                      <tr>
-                                        <td><b>Umuzungura</b></td>
-                                        <td>{{ employee.umuzungura }}</td>
-                                      </tr>
-                                      <tr>
                                         <td><b>Umukono</b></td>
-                                        <td>{{ employee.umukono }}</td>
-                                      </tr>
-                                    <tr>
-                                        <td><b>Igitsina</b></td>
-                                        <td>{{ employee.gender }}</td>
+                                        <td> ------------- </td>
                                       </tr>
                                       <tr>
-                                        <td><b>Tariki y'amavuko </b></td>
-                                        <td>{{ employee.dob }}</td>
+                                        <td><b>Nomero ya telephone </b></td>
+                                        <td>{{ employee.nomeroYaTelephone }}</td>
                                       </tr>
-                                      <tr>
-                                        <td><b>Numero ya telephone</b></td>
-                                        <td>{{ employee.phone }}</td>
-                                      </tr>
-
                                       <tr>
                                         <td><b>Amashuri</b></td>
                                         <td>{{ employee.Amashuri }}</td>
                                       </tr>
-
-                                      <tr>
+                                    <tr>
                                         <td><b>Ubumuga</b></td>
                                         <td>{{ employee.Ubumuga }}</td>
                                       </tr>
+
+                                      <tr>
+                                        <td><b>Arubatse </b></td>
+                                        <td>{{ employee.Arubatse }}</td>
+                                      </tr>
+
+                                      <tr>
+                                        <td><b>Umubare w'abana</b></td>
+                                        <td>{{ employee.umubareWabana }}</td>
+                                      </tr>
+
+                                      <tr>
+                                        <td><b>Icyiciro cy'ubudehe</b></td>
+                                        <td>{{ employee.icyiciroCyubudehe }}</td>
+                                      </tr>
+
+                                      <tr>
+                                        <td><b>Ubwishingizi</b></td>
+                                        <td>{{ employee.Ubwishingizi }}</td>
+                                      </tr>
+
+                                      <tr>
+                                        <td><b>Akazi akora muri coop</b></td>
+                                        <td>{{ employee.akaziAkoraMuriCoop }}</td>
+                                      </tr>
+
+                                      <tr>
+                                        <td><b>Akandi kazi akora</b></td>
+                                        <td>{{ employee.akandiKazi }}</td>
+                                      </tr>
+
+                                      <tr>
+                                        <td><b>Ubuso ahingaho</b></td>
+                                        <td>{{ employee.ubusoAhingaho }}</td>
+                                      </tr>
+
+                                      <tr>
+                                        <td><b>Ubwoko bw'igihingwa</b></td>
+                                        <td>{{ employee.ubwokoBwigihingwa }}</td>
+                                      </tr>
+
+
 
                                       <tr>
                                         <td><b>Umwanya</b></td>

@@ -60,10 +60,10 @@ def aicos_members_home():
     employee = Department.query.filter_by(email=current_user.email).first()
 
     employees = employee.members
-    employees_male = employee.members.filter_by(gender='male')
-    employees_male_count = employee.members.filter_by(gender='male').count()
-    employees_female = employee.members.filter_by(gender='female')
-    employees_female_count = employee.members.filter_by(gender='female').count()
+    employees_male = employee.members.filter_by(Igitsina='male')
+    employees_male_count = employee.members.filter_by(Igitsina='male').count()
+    employees_female = employee.members.filter_by(Igitsina='female')
+    employees_female_count = employee.members.filter_by(Igitsina='female').count()
     employees_abatarize = employee.members.filter_by(Amashuri='no')
     employees_abatarize_count = employee.members.filter_by(Amashuri='no').count()
     employees_abanza = employee.members.filter_by(Amashuri='low')
@@ -94,7 +94,7 @@ def aicos_members_home():
     employees_mumutwe_count = employee.members.filter_by(Ubumuga='Mu mutwe').count()
 
 
-    male_members = employee.members.filter_by(gender='Gole').first()
+    male_members = employee.members.filter_by(Igitsina='Gole').first()
     #male_members_all = male_members.query.all()
     employees_count = employee.members.count()
     #if employees is not None:
@@ -163,10 +163,10 @@ def dashboard():
 
 
 
-    employees_male = employee.members.filter_by(gender='male')
-    employees_male_count = employee.members.filter_by(gender='male').count()
-    employees_female = employee.members.filter_by(gender='female')
-    employees_female_count = employee.members.filter_by(gender='female').count()
+    employees_male = employee.members.filter_by(Igitsina='male')
+    employees_male_count = employee.members.filter_by(Igitsina='male').count()
+    employees_female = employee.members.filter_by(Igitsina='female')
+    employees_female_count = employee.members.filter_by(Igitsina='female').count()
     employees_abatarize = employee.members.filter_by(Amashuri='Abatarize')
     employees_abatarize_count = employee.members.filter_by(Amashuri='Abatarize').count()
     employees_abanza = employee.members.filter_by(Amashuri='Abanza')
@@ -197,7 +197,7 @@ def dashboard():
     employees_mumutwe_count = employee.members.filter_by(Ubumuga='Mu mutwe').count()
 
 
-    male_members = employee.members.filter_by(gender='Gole').first()
+    male_members = employee.members.filter_by(Igitsina='Gole').first()
     #if employees is not None:
     #employees = Employee.query.filter_by(email=form.email.data)
 
@@ -322,11 +322,11 @@ def goalDelete(id):
 def joiningChart():
     employee = Department.query.filter_by(email=current_user.email).first()
     employees = employee.members
-    employees_male = employee.members.filter_by(gender='Gabo')
-    employees_male_count = employee.members.filter_by(gender='Gabo').count()
-    employees_female = employee.members.filter_by(gender='Gole')
-    employees_female_count = employee.members.filter_by(gender='Gole').count()
-    male_members = employee.members.filter_by(gender='Gole').first()
+    employees_male = employee.members.filter_by(Igitsina='Gabo')
+    employees_male_count = employee.members.filter_by(Igitsina='Gabo').count()
+    employees_female = employee.members.filter_by(Igitsina='Gole')
+    employees_female_count = employee.members.filter_by(Igitsina='Gole').count()
+    male_members = employee.members.filter_by(Igitsina='Gole').first()
     male_members_all = male_members.query.all()
     employees_count = employee.members.count()
     return render_template("employees/joining_chart.html",
@@ -1004,23 +1004,44 @@ def AddNewMember():
     if form.validate_on_submit():
         NewMember = Member(
 
-                            firstName = form.firstNamex.data,
-                            secondName = form.secondNamex.data,
-                            others     = form.othersx.data,
-                            District  = form.Districtx.data,
-                            Sector  = form.Sectorx.data,
-                            Cell = form.Cellx.data,
-                            nId = form.nIdx.data,
-                            entryDate = form.entryDatex.data,
-                            share     = form.sharex.data,
-                            exitDate     = form.exitDatex.data,
-                            umuzungura     = form.umuzungurax.data,
-                            umukono     = form.umukonox.data,
-                            gender = form.genderx.data,
-                            dob    = form.dobx.data,
-                            phone  = form.phonex.data,
-                            Amashuri  = form.amashurix.data,
-                            Ubumuga  = form.ubumugax.data,
+                            izinaRibanza = form.izina_ribanza.data,
+                            izinaRikurikira = form.izina_rikurikira.data,
+                            Ayandi     = form.ayandi.data,
+                            Igitsina  = form.igitsina.data,
+                            indangamuntu  = form.indangamuntu.data,
+                            Code          = form.code.data,
+                            tarikiYamavuko = form.tariki_yavukiye.data,
+                            Intara = form.intara.data,
+
+                            Akarere = form.akarere.data,
+                            Umurenge     = form.umurenge.data,
+                            Akagari     = form.akagari.data,
+                            Umudugudu     = form.umudugudu.data,
+                            tarikiYinjiriye     = form.tariki_yinjiriye.data,
+                            Umugabane = form.umugabane.data,
+
+                            Umukono    = form.umukono.data,
+                            nomeroYaTelephone  = form.nomero_ya_telephone.data,
+                            Amashuri  = form.amashuri.data,
+                            Ubumuga  = form.ubumuga.data,
+
+
+
+                            Arubatse     = form.arubatse.data,
+                            umubareWabana     = form.umubare_wabana.data,
+                            icyiciroCyubudehe = form.icyiciro_cyubudehe.data,
+                            Ubwishingizi    = form.ubwishingizi.data,
+                            akaziAkoraMuriCoop  = form.akazi_akora_muri_koperative.data,
+                            akandiKazi  = form.akandi_kazi_akora.data,
+
+
+                            ubusoAhingaho  = form.ubuso_ahingaho.data,
+                            ubwokoBwigihingwa  = form.ubwoko_bwigihingwa.data,
+                            ubusoAhingahoIbindi = form.ubuso_ahingaho_ibindi.data,
+
+                            
+                            ubwokoBwigihingwaKindi = form.ubwoko_bwigihingwa_kindi.data,
+                            ubusoBudakoreshwa = form.ubuso_budakoreshwa.data,
                             department_id = current_user.email
                             )
 
