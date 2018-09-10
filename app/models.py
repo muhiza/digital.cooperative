@@ -218,11 +218,17 @@ class Department(db.Model):
 	# federation_id = db.Column(db.Integer, db.ForeignKey('federations.id'))
 	# union_id	   = db.Column(db.Integer, db.ForeignKey('unions.id'))
 	# Professional information
-	started_data = db.Column(db.String(200))
-	starting_share = db.Column(db.Integer)
+	started_data = db.Column(db.DateTime, default=datetime.datetime.utcnow)
+	starting_share = db.Column(db.String(200))
+	share_per_person = db.Column(db.String(200))
+	male_members = db.Column(db.String(200))
+	female_members = db.Column(db.String(200))
 	#email       = db.Column(db.String(200))
 	applications = db.relationship('Application', backref='department', lazy='dynamic')
 	employees = db.relationship('Employee', backref='department',lazy='dynamic')
+	staffs = db.relationship('Staff', backref='department',lazy='dynamic')
+	activities = db.relationship('Activity', backref='department',lazy='dynamic')
+	roles = db.relationship('Role', backref='department',lazy='dynamic')
 	products        = db.relationship('Product', backref='department', lazy='dynamic')
 	orders          = db.relationship('Order', backref='department', lazy='dynamic')
 	members         = db.relationship('Member', backref='department', lazy='dynamic')
@@ -249,11 +255,12 @@ class Department(db.Model):
 
 	#Dealing with excel staff here.
 
-	""" We will always use this __init__ function to upload excel file  """
+	""" We will always use this __init__ function to upload excel file  
 	def __init__(self, email):
 		self.id = id
 		self.email = email
-
+	"""
+	
 	""" That in btn """
 		#self.description = description
 		#self.employees   = employees
@@ -301,9 +308,9 @@ class Role(db.Model):
 	description = db.Column(db.String(200))
 	employees = db.relationship('Employee', backref='role',
 								lazy='dynamic')
-
 	members = db.relationship('Member', backref='role',
 								lazy='dynamic')
+	department_id = db.Column(db.String(200), db.ForeignKey('departments.email'))
 
 
 	"""
@@ -317,6 +324,76 @@ class Role(db.Model):
 
 	def __repr__(self):
 		return '<Role: {}>'.format(self.name)
+
+
+
+
+class Staff(db.Model):
+	"""
+	Create a Role table
+	"""
+
+	__tablename__ = 'staffs'
+
+	id = db.Column(db.Integer, primary_key=True)
+	first_name = db.Column(db.String(60))
+	last_name = db.Column(db.String(60))
+	nid = db.Column(db.String(60))
+	district = db.Column(db.String(60))
+	sector = db.Column(db.String(60))
+	sex = db.Column(db.String(60))
+	yob = db.Column(db.String(60))
+	position = db.Column(db.String(60))
+	education = db.Column(db.String(60))
+	telephone = db.Column(db.String(60))
+	email = db.Column(db.String(60))
+	monthly_net_salary = db.Column(db.String(60))
+	department_id = db.Column(db.String(200), db.ForeignKey('departments.email'))
+
+
+	"""
+	#Dealing with excel staff here.
+	def __init__(self,name):
+		self.id = id
+		self.name = name
+		#self.description = description
+		#self.employees   = employees
+	"""
+
+	def __repr__(self):
+		return '<Staff: {}>'.format(self.first_name)
+
+
+
+class Activity(db.Model):
+	"""
+	Create a Role table
+	"""
+	__tablename__ = 'activities'
+	id = db.Column(db.Integer, primary_key=True)
+	name = db.Column(db.String(60), unique=True)
+	description = db.Column(db.String(200))
+	department_id = db.Column(db.String(200), db.ForeignKey('departments.email'))
+
+
+
+
+class Asset(db.Model):
+	"""
+	Create a Role table
+	"""
+	__tablename__ = 'Assets'
+	id = db.Column(db.Integer, primary_key=True)
+	asset_type = db.Column(db.String(60))
+	asset_location = db.Column(db.String(60))
+	asset_value = db.Column(db.String(60))
+	description = db.Column(db.String(200))
+	department_id = db.Column(db.String(200), db.ForeignKey('departments.email'))
+
+
+
+
+
 
 
 
@@ -522,49 +599,45 @@ class Member(db.Model):
 	__tablename__ = "members"
 	id = db.Column(db.Integer, primary_key=True, unique=True)
 	sno = db.Column(db.String(200))
-	izinaRibanza = db.Column(db.String(200))
-	izinaRikurikira = db.Column(db.String(200))
+	izina_ribanza = db.Column(db.String(200))
+	izina_rikurikira = db.Column(db.String(200))
 	Ayandi = db.Column(db.String(200))
 	Igitsina = db.Column(db.String(200))
-	indangamuntu = db.Column(db.String(200))
-	Code 		 = db.Column(db.String(200))
-	tarikiYamavuko = db.Column(db.String(200))
+	Indangamuntu = db.Column(db.String(200))
+	tariki_yavukiye = db.Column(db.String(200))
 	Intara = db.Column(db.String(200))
 	Akarere = db.Column(db.String(200))
 	Umurenge = db.Column(db.String(200))
 	Akagari = db.Column(db.String(200))
 	Umudugudu = db.Column(db.String(200))
-	
-	tarikiYinjiriye = db.Column(db.String(200))
-	Umugabane = db.Column(db.String(200))
+	tariki_yinjiriye = db.Column(db.String(200))
+	umugabane_ukwezi = db.Column(db.String(200))
 	Umukono  = db.Column(db.String(200))
-	nomeroYaTelephone     = db.Column(db.String(200))
+	nomero_telephone     = db.Column(db.String(200))
 	Amashuri     = db.Column(db.String(200))
 	Ubumuga = db.Column(db.String(200))
-	
 	Arubatse = db.Column(db.String(200))
-	umubareWabana = db.Column(db.String(200))
-	icyiciroCyubudehe = db.Column(db.String(200))
+	umubare_abana = db.Column(db.String(200))
+	icyiciro_ubudehe = db.Column(db.String(200))
 	Ubwishingizi 	   = db.Column(db.String(200))
-	akaziAkoraMuriCoop      = db.Column(db.String(200))
-	akandiKazi	   = db.Column(db.String(200))
-	ubusoAhingaho =  db.Column(db.String(200))
-	ubwokoBwigihingwa			  =  db.Column(db.String(200))
-	
-	ubusoAhingahoIbindi			  =  db.Column(db.String(200))
-	ubwokoBwigihingwaKindi			  =  db.Column(db.String(200))
-	ubusoBudakoreshwa				  = db.Column(db.String(200))
+	akazi_akora_muri_koperative      = db.Column(db.String(200))
+	akazi_akora_ahandi	   = db.Column(db.String(200))
+	ubuso_ahingaho =  db.Column(db.String(200))
+	ubwoko_igihingwa			  =  db.Column(db.String(200))
+	ubuso_ahingaho_ibindi			  =  db.Column(db.String(200))
+	ubwoko_igihingwa_kindi			  =  db.Column(db.String(200))
+	ubuso_budakoreshwa			  = db.Column(db.String(200))
+
+
 
 	role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
 	department_id = db.Column(db.String(200), db.ForeignKey('departments.email'))
 
-	""" We will always use this __init__ function to upload excel file 
-	def __init__(self, nId):
+	""" We will always use this __init__ function to upload excel file  
+	def __init__(self, sno):
 		self.id = id
-		self.nId = nId
-
-		"""
-	
+		self.sno = sno
+	"""
 
 	"""
 	Importing data using this views.

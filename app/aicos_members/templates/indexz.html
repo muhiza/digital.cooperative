@@ -81,88 +81,93 @@
                                     <a href="{{ url_for('aicos_acc.newBill') }}">
                                     <i class="fa fa-list"> List y'abanyamuryango</i></a></button>
 
+
+
+                                    <a href="{{ url_for('aicos_members.invite_members') }}" class="btn btn-success">
+                                    <i class="fa fa-envelope"> </i>
+                                    Invite
+                                    </a>
+
+
                                     </div>
                                 </div>
                             </div>
 
 
 
+                              <table id="dt-tablex" class="table table-striped" cellspacing="0" width="100%">
+                                      <thead>
+                                          <tr>
+                                              <th>Izina Ribanza</th>
+                                              <th>Irikurikira</th>
+                                              <th>Akarere</th>
+                                              <th>Umurenge</th>
+                                              <th>Akagari</th>
 
+                                              <th>Umudugudu</th>
 
-<table id="dt-tablex" class="table table-striped" cellspacing="0" width="100%">
-        <thead>
-            <tr>
-                <th>Izina Ribanza</th>
-                <th>Irikurikira</th>
-                <th>Akarere</th>
-                <th>Umurenge</th>
-                <th>Akagari</th>
+                                              <th>Umugabane</th>
+                                              <th>Ibindi</th>
+                                          </tr>
+                                      </thead>
+                                      <tfoot>
+                                          <tr>
+                                              <th>Izina Ribanza</th>
+                                              <th>Irikurikira</th>
+                                              <th>Akarere</th>
+                                              <th>Umurenge</th>
+                                              <th>Akagari</th>
 
-                <th>Umudugudu</th>
+                                              <th>Umudugudu</th>
 
-                <th>Umugabane</th>
-                <th>Ibindi</th>
-            </tr>
-        </thead>
-        <tfoot>
-            <tr>
-                <th>Izina Ribanza</th>
-                <th>Irikurikira</th>
-                <th>Akarere</th>
-                <th>Umurenge</th>
-                <th>Akagari</th>
+                                              <th>Umugabane</th>
+                                              <th>Ibindi</th>
+                                          </tr>
+                                      </tfoot>
+                                      <tbody>
+                                      {% if employees %}
+                                            {% for employee in employees %}
+                                                  <tr>
+                                                    <td> {{ employee.izina_ribanza }} </td>
+                                                    <td> {{ employee.izina_rikurikira }} </td>
+                                                    <td> {{ employee.Akarere }} </td>
+                                                    <td> {{ employee.Umurenge }} </td>
+                                                    <!--
+                                                    <td>
+                                                      {% if employee.role %}
+                                                      <span class="label label-info">{{ employee.role.name }}</span>
+                                                      {% else %}
+                                                        Umunyamuryango
+                                                      {% endif %}
+                                                    </td>
+                                                    -->
+                                                    <td>{{ employee.Akagari }}</td>
+                                                    <td> {{ employee.Umudugudu }} </td>
+                                                    <td> {{ employee.umugabane_ukwezi }} </td>
+                                                    <td> 
+                                                    <span class="badge badge-info">
+                                                    <b>
+                                                    <a href="{{ url_for('aicos_members.memberDetails', id=employee.id) }}" style="color:white; font-size: 12px;">
+                                                    <i class="fa fa-eye"></i>
+                                                      Ibindi
+                                                    </a>
+                                                    </b>
+                                                    </span>
+                                                    <!--
+                                                    Trying out to use modal here
+                                                    <a href="#my_modal" data-toggle="modal" data-book-id="employee.id">Open</a>
+                                                    -->
+                                                    </td>
+                                                  </tr>
+                                            {% endfor %}
 
-                <th>Umudugudu</th>
+                                            {% else %}
 
-                <th>Umugabane</th>
-                <th>Ibindi</th>
-            </tr>
-        </tfoot>
-        <tbody>
-        {% if employees %}
-              {% for employee in employees %}
-                    <tr>
-                      <td> {{ employee.izinaRibanza }} </td>
-                      <td> {{ employee.izinaRikurikira }} </td>
-                      <td> {{ employee.Akarere }} </td>
-                      <td> {{ employee.Umurenge }} </td>
-                      <!--
-                      <td>
-                        {% if employee.role %}
-                        <span class="label label-info">{{ employee.role.name }}</span>
-                        {% else %}
-                          Umunyamuryango
-                        {% endif %}
-                      </td>
-                      -->
-                      <td>{{ employee.Akagari }}</td>
-                      <td> {{ employee.Umudugudu }} </td>
-                      <td> {{ employee.Umugabane }} </td>
-
-                      <td> 
-                      <span class="badge badge-info">
-                      <b>
-                      <a href="{{ url_for('aicos_members.memberDetails', id=employee.id) }}" style="color:white; font-size: 12px;">
-                      <i class="fa fa-eye"></i>
-                        Ibindi
-                      </a>
-                      </b>
-                      </span>
-                      <!--
-                      Trying out to use modal here
-                      <a href="#my_modal" data-toggle="modal" data-book-id="employee.id">Open</a>
-                      -->
-                      </td>
-                    </tr>
-              {% endfor %}
-
-              {% else %}
-
-                    <h3>Hello Friday</h3>
-        {% endif %}
-        </tbody>
-    </table> 
-    <br><br><br>
+                                                  <h3>Hello Friday</h3>
+                                      {% endif %}
+                                      </tbody>
+                                  </table> 
+                                  <br><br><br>
 
 
     <div id="chartzxc"></div> 

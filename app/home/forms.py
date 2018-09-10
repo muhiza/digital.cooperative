@@ -9,6 +9,8 @@ from wtforms.ext.sqlalchemy.fields import QuerySelectField
 from ..models import *
 from .. import *
 
+from markupsafe import Markup
+
 
 class ApplicationForm(FlaskForm):
     Emaila =  StringField("Email yawe", validators=[DataRequired()], render_kw={"placeholder": "Injizamo Izina ribanza"})
@@ -158,5 +160,61 @@ class DepartmentForm(FlaskForm):
 
 
     Description = TextAreaField('Ubundi busobanuro bwa Koperative (Si ngombwa)', render_kw={"placeholder": "Ubundi busobanuro bwa Koperative (Si ngombwa)"})
+
+    submit = SubmitField('Injiza muri sisiteme')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class newDepartmentForm(FlaskForm):
+    """
+    Form for admin to add or edit a department
+    """
+    Name = StringField(Markup('<b>Izina rya Koperative</b>'), validators=[DataRequired()], render_kw={"placeholder": "Injiza izina rya Koperative"})
+    Province = SelectField(
+        Markup('<b>Intara Koperative ibarizwamo</b>'),
+        choices=[('Intara', 'Intara'),('Kigali City', 'Kigali City'), 
+        ('East', 'East'), ('West', 'West'),
+        ('North', 'North'), ('South', 'South')])
+
+    District = SelectField(
+        Markup('<b>Akarere Koperative ibarizwamo</b>'),
+        choices=[('Akarere', 'Akarere'),('Nyarugenge', 'Nyarugenge'), 
+        ('Gasabo', 'Gasabo'), ('Kicukiro', 'Kicukiro'),
+        ('Kayonza', 'Kayonza'), ('Kirehe', 'Kirehe'),
+        ('Ngoma', 'Ngoma'), ('Bugesera', 'Bugesera'),
+        ('Nyagatare', 'Nyagatare'), ('Gatsibo', 'Gatsibo'),
+
+
+        ('Kamonyi', 'Kamonyi'), ('Ruhango', 'Ruhango'),
+        ('Muhanga', 'Muhanga'), ('Nyanza', 'Nyanza'),
+        ('Huye', 'Huye'), ('Nyaruguru', 'Nyaruguru'),
+
+        ('Rulindo', 'Rulindo'), ('Burera', 'Burera'),
+        ('Gakenke', 'Gakenke'), ('Gicumbi', 'Gicumbi'),
+        ('Musanze', 'Musanze'),
+
+
+        ('Karongi', 'Karongi'), ('Ngororero', 'Ngororero'),
+        ('Nyabihu', 'Nyabihu'), ('Nyamasheke', 'Nyamasheke'),
+
+        ('Rubavu', 'Rubavu'), ('Rusizi', 'Rusizi'),
+        ('Rutsiro', 'Rutsiro')])
+    Sector = StringField(Markup('<b>Injiza umurenge Koperative ibarizwamo</b>'), validators=[DataRequired()], render_kw={"placeholder": "Injiza umurenge Koperative ibarizwamo"})
+    Cell = StringField(Markup('<b>Injiza akagari Koperative ibarizwamo</b>'), validators=[DataRequired()], render_kw={"placeholder": "Injiza akagari Koperative ibarizwamo"})
+    startingSharex = StringField(Markup('<b>Umugabane Shingiro</b>'), validators=[DataRequired()], render_kw={"placeholder": "Umugabane Shingiro wo Kwinjira muri Cooperative"})
+    sharePerPerson = StringField(Markup('<b>Umugabane Kuri buri munyamuryango</b>'), validators=[DataRequired()], render_kw={"placeholder": "Umugabane Shingiro wo Kwinjira muri Cooperative"})
+    maleMembers = StringField(Markup('<b>Abanyamuryango b\'abagabo</b>'), validators=[DataRequired()], render_kw={"placeholder": "Umugabane Shingiro wo Kwinjira muri Cooperative"})
+    femaleMembers = StringField(Markup('<b>Abanyamuryango b\'abagore</b>'), validators=[DataRequired()], render_kw={"placeholder": "Umugabane Shingiro wo Kwinjira muri Cooperative"})
 
     submit = SubmitField('Injiza muri sisiteme')

@@ -1,15 +1,275 @@
+
 {% import "bootstrap/utils.html" as utils %}
 {% extends "members_base.html" %}
 {% block title %}Cooperative Details{% endblock %}
+
+
     {% block body %}
+
+
+
       <div class="container-fluid">
             <div class="card">
                 <div class="card-header bg-light">
-                      <h3><b>Umwirondoro wa {{ departmentszx.name }}</b> Cooperative</h3>
+                      <h3></h3>
+                      <h1><strong>Cooperative application </strong></h1>
+                      <p>Check information that you put and select “accept” if you can approve the cooperative at sector level.</p>
                 </div>
             <div class="card-body">
             <br/>
         {{ utils.flashed_messages() }}
+
+
+
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header border border-top-0 border-right-0 border-left-0" style="background-color: #337AB7;">
+                            <span style="color: #fff;"><b>Application</b></span>
+                        </div>
+                        
+                        <table class="table table-striped table-bordered">
+                            <thead>
+                              <tr>
+                                <th width="35%"> Application Code </th>
+                                <th width="35%"> Application Date </th>
+                                <th width="30%"> Application Status </th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr>
+                                <td> RCA/0592/2018/AP<br> Tracking code: 06171 </td>
+                                <td> {{ departmentszx.started_data }}  </td>
+                                <td> Pending </td>
+                              </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+
+
+
+
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header border border-top-0 border-right-0 border-left-0" style="background-color: #337AB7;">
+                            <span style="color: #fff;"><b>Comment / Recommendation made by Umurenge</b></span>
+                        </div>
+                        
+                        <table class="table table-striped table-bordered">
+                            <thead>
+                              <tr>
+                                <th width="100%"> - </th>
+                              </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+
+
+
+
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header border border-top-0 border-right-0 border-left-0" style="background-color: #337AB7;">
+                            <span style="color: #fff;"><b>Comment / Recommendation made by District</b></span>
+                        </div>
+                        
+                        <table class="table table-striped table-bordered">
+                            <thead>
+                              <tr>
+                                <th width="100%"> - </th>
+                              </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+
+
+
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header border border-top-0 border-right-0 border-left-0" style="background-color: #337AB7;">
+                            <span style="color: #fff;"><b>Comment / Recommendation made by RCA</b></span>
+                        </div>
+                        
+                        <table class="table table-striped table-bordered">
+                            <thead>
+                              <tr>
+                                <th width="100%"> - </th>
+                              </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+
+
+                <div class="row">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header border border-top-0 border-right-0 border-left-0" style="background-color: #DFF0D8;">
+                            <span style="color: #3C763D;"><b>Cooperative</b></span>
+                        </div>
+                        
+                        <p><b>&nbsp;&nbsp;&nbsp; General Information </b></p>
+                        <table class="table">
+                            <thead>
+                            </thead>
+                              <tbody>
+                                <tr>
+                                  <td><b>Name</b></td>
+                                  <td>{{ departmentszx.name }}</td>
+                                </tr>
+                                <tr>
+                                  <td><b>Location</b></td>
+                                  <td>{{ departmentszx.province }} / {{ departmentszx.district }} / {{ departmentszx.sector }}</td>
+                                </tr>
+                                <tr> 
+                                  <td><b>Share/Personal</b></td>
+                                  <td>{{ departmentszx.share_per_person }}</td>
+                                </tr>
+                              <tr>
+                                  <td><b>Share/Capital</b></td>
+                                  <td>{{ departmentszx.starting_share }}</td>
+                                </tr>
+                                <tr>
+                                  <td><b>Activity</b></td>
+                                  <td>Ubworozi</td>
+                                </tr>
+                              </tbody>
+                          </table>
+
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header border border-top-0 border-right-0 border-left-0" style="background-color: #DFF0D8;">
+                            <span style="color: #3C763D;"><b>Membership</b></span>
+                        </div>
+                        <table class="table">
+                            <thead>
+                            </thead>
+                              <tbody>
+                                <tr>
+                                  <td><b>Number of members (Male)</b></td>
+                                  <td>{{ employees_male_count }}</td>
+                                </tr> 
+                                <tr>
+                                  <td><b>Number of members (Female)</b></td>
+                                  <td>{{ employees_female_count }}</td>
+                                </tr>
+                                <tr> 
+                                  <td><b>Total (Male + Female)</b></td>
+                                  <td>{{ employees_male_count + employees_female_count }}</td>
+                                </tr>
+                              </tbody>
+                          </table>
+
+
+                        <div class="card-header border border-top-0 border-right-0 border-left-0" style="background-color: #DFF0D8;">
+                            <span style="color: #3C763D;"><b>Committees</b></span>
+                        </div>
+                        <table class="table">
+                            <thead>
+                            </thead>
+                              <tbody>
+
+                                  <tr>
+                                    <th rowspan="3">Administrative committee:</th>
+                                    <td>Male</td>
+                                    <td>0</td>
+                                  </tr>
+
+                                  <tr>
+                                    <td>Female</td>
+                                    <td>1</td>
+                                  </tr>
+
+
+                                  <tr>
+                                    <td>Total</td>
+                                    <td>1</td>
+                                  </tr>
+
+
+
+                                  <tr>
+                                    <th rowspan="3">Supervisory committee:</th>
+                                    <td>Male</td>
+                                    <td>0</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Female</td>
+                                    <td>1</td>
+                                  </tr>
+                                  <tr>
+                                    <td>Total</td>
+                                    <td>1</td>
+                                  </tr>
+
+                              </tbody>
+                          </table>
+
+
+                    </div>
+                </div>
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--
             <div class="row">
                 <div class="col-md-3">
                     <div class="card p-4">
@@ -303,34 +563,6 @@ function redraw(){
                 </tbody>
             </table>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
               </div>
           </div>
       </div>
@@ -383,7 +615,7 @@ function redraw(){
     </table>
 
     </head>
-<!--
+
 
             <table class="table table-striped table-bordered">
               <thead>

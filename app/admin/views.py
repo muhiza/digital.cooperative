@@ -1,7 +1,7 @@
 from flask import abort,  request, flash, redirect, render_template, url_for, jsonify
 from flask_login import current_user, login_required
 from . import admin
-from forms import *
+from .forms import *
 #from forms import DepartmentForm, EmployeeAssignForm, RoleForm, SendSMS, 
 #ProjectForm, ClientForm, ProductForm, NewEmployee, SubscriptionPlan, ProductForm, OrderForm
 from .. auth.forms import *

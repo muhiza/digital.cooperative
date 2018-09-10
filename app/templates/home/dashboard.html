@@ -72,7 +72,7 @@
       <img src="{{ url_for('static', filename='images/logos/smaller.png') }}" style="height: 45px; width: 100px; margin-top: 2px; margin-bottom: 2px;" />
     </div> 
     <ul class="nav navbar-nav navbar-right">
-      <li class="dropdwon-nav dropdown"><a class="dropdwon-nav dropdown-toggle" data-toggle="dropdown" href="#"><small class="glyphicon glyphicon-user"></small> {{ current_user.username }} <small class="caret"></small></a>
+      <li class="dropdwon-nav dropdown"><a class="dropdwon-nav dropdown-toggle" data-toggle="dropdown" href="#"><small class="glyphicon glyphicon-user"></small> {{ current_user.first_name }} <small class="caret"></small></a>
         <ul class="dropdown-menu">
           <li class="li-title"><a href="{{ url_for('home.user_profile', id=current_user.id, username=current_user.username) }}"><small class="glyphicon glyphicon-user"></small> Profiles</a></li>
           <li class="li-title"><a href="#"><small class="glyphicon glyphicon-bell"></small> Notifications</a></li>
@@ -89,10 +89,10 @@
     <div class="col-lg-6" style="text-align: center;">
       <div class="select">
         <div class="">
-          <h1 style="font-style: bold; font-size: 50px;">Ikaze, <strong>{{ current_user.username }}!</strong></h1>
+          <h1 style="font-style: bold; font-size: 50px;">Ikaze, <strong>{{ current_user.first_name }}!</strong></h1>
         </div>
         <div class="">
-          <h3 style="font-style: italic;">Nta koperative ufite ubarizwamo, hitamo muri ibi bikurikira.</h3>
+          <h3 style="font-style: italic;">Nta koperative ufite ubarizwamo, hitamo ibikurikira.</h3>
         </div>
       </div>
     </div>
@@ -100,12 +100,21 @@
 </div><hr />
   <div class="row">
       <div class="col-lg-1"></div>
-        <div class="col-lg-6" style="margin-left: 16%;">
+        <div class="col-lg-6" style="margin-left: 15%;">
+            <!--
             <div class="col-sm-6 col-md-3 col-lg-4">
               <a href="{{ url_for('home.join_cooperative') }}" class="btn btn-lg btn-join" style="padding-right: 25%; padding-left: 15%;"><b>INJIRA MURI KOPERATIVE</b></a>
             </div>
-            <div class="col-sm-6 col-md-3 col-lg-6 pull-right" style="margin-right: 3%;">
-              <a href="{{ url_for('home.search_coop', page_num=1) }}" class="btn btn-lg btn-search"><b>INJIZA KOPERATIVE MURI SISITEME</b></a>
+            -->
+
+            <div class="col-sm-6 col-md-3 col-lg-4">
+              <a href="{{ url_for('home.newApplication') }}" class="btn btn-lg btn-join" style="padding-right: 45%; padding-left: 30%;"><b>NEW COOPERATIVE</b></a>
+            </div>
+
+
+
+            <div class="col-sm-6 col-md-3 col-lg-6 pull-right">
+              <a href="{{ url_for('home.search_coop', page_num=1) }}" class="btn btn-lg btn-search" style="padding-right: 5%; padding-left: 5%;""><b>INJIZA KOPERATIVE MURI SISITEME</b></a>
             </div>
         </div> 
   </div>

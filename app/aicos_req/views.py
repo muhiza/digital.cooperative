@@ -2,7 +2,7 @@ from flask import render_template, abort, flash, redirect, url_for, request
 from . import aicos_req
 from flask_login import current_user, login_required
 from ..models import * 
-from . forms import *
+from .forms import *
 
 import flask_excel
 import flask_excel as excel

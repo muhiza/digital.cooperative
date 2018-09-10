@@ -15,7 +15,7 @@
     <link href="{{ url_for('static', filename='imboni/vendor/simple-line-icons/css/simple-line-icons.css') }}" rel="stylesheet">
     <link href="{{ url_for('static', filename='imboni/vendor/font-awesome/css/fontawesome-all.min.css') }}" rel="stylesheet">
     <link href="{{ url_for('static', filename='imboni/css/styles.css') }}" rel="stylesheet">
-
+    
     <style type="text/css">
     @import url('https://fonts.googleapis.com/css?family=Quicksand');
 
@@ -75,12 +75,13 @@
                     </li>
 
 
+                    <!--
                     <li class="nav-item">
                         <a href="{{ url_for('aicos_members.memberPayments') }}" class="nav-link">
                             <i class="fa fa-upload"></i><b>Imyishyurire </b>
                         </a>
                     </li>
-                    <!--
+                    
                     <li class="nav-item nav-dropdown">
                         <a href="{{ url_for('aicos_members.joiningChart') }}" class="nav-link nav-dropdown-toggle">
                             <i class="icon icon-energy"></i><b>Imyinjirire</b><i class="fa fa-caret-left"></i>
@@ -97,10 +98,42 @@
                     -->
                     <li class="nav-item">
                         <a href="{{ url_for('aicos_members.list_roles') }}" class="nav-link">
-                            <i class="icon icon-pencil"></i>
-                            <b>Imyanya</b>
+                            <i class="fa fa-clipboard"></i><b>Committees</b>
                         </a>
                     </li>
+
+                    <li class="nav-item">
+                        <a href="{{ url_for('aicos_members.list_staffs') }}" class="nav-link">
+                            <i class="fa fa-hand-paper-o"></i><b>Abakozi</b>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="{{ url_for('aicos_members.list_activities') }}" class="nav-link">
+                            <i class="fa fa-thumbs-up"></i><b>Ibikorwa</b>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="{{ url_for('aicos_members.list_assets') }}" class="nav-link">
+                            <i class="fa fa-eject"></i><b>Umutungo</b>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="fa fa-align-center"></i><b>Certificate</b>
+                        </a>
+                    </li>
+
+
+
+
+
+
+
+
+                <!--
                     <li class="nav-item">
                         <a href="{{ url_for('aicos_members.memberCreate') }}" class="nav-link">
                             <i class="icon icon-folder"></i>
@@ -153,6 +186,8 @@
                             </li>
                         </ul>
                     </li>
+                    -->
+
                 </ul>
             </nav>
         </div>

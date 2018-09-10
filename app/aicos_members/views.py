@@ -2,7 +2,7 @@ from flask import render_template, abort, flash, redirect, url_for, request
 from . import aicos_members
 from flask_login import current_user, login_required
 from ..models import * 
-from . forms import *
+from .forms import *
 import flask_excel
 import flask_excel as excel
 
@@ -267,9 +267,14 @@ def cooper_det():
     #check_overall()
     #check_coop_admin()
     #departments = Department.query.get_or_404(ema0il)
-    departmentszx = Department.query.filter_by(name='AbariHamwe')
+    departmentszx = Department.query.filter_by(email=current_user.email).first()
+        
+    employees_male_count = departmentszx.members.filter_by(Igitsina='Gabo').count()
+    employees_female_count = departmentszx.members.filter_by(Igitsina='Gole').count()
+
     if departmentszx is not None:
-      return render_template("deta/coop_det.html", departmentszx=departmentszx, 
+      return render_template("deta/coop_det.html", departmentszx=departmentszx, employees_male_count=employees_male_count,
+                               employees_female_count=employees_female_count,
             title="Cooperative's details")
     #return redirect(url_for('admin.list_employees'))
 
@@ -362,7 +367,7 @@ def list_roles():
     """
     List all roles
     """
-    roles = Role.query.all()
+    roles = Role.query.filter_by(department_id=current_user.email)
     return render_template('roles/roles.html',
                            roles=roles, title='Roles')
 
@@ -383,7 +388,8 @@ def add_role(*args, **kwargs):
     form = RoleForm()
     if form.validate_on_submit():
         role = Role(name=form.name.data,
-                    description=form.description.data)
+                    description=form.description.data,
+                    department_id = current_user.email)
         try:
             # add role to the database
             db.session.add(role)
@@ -397,6 +403,167 @@ def add_role(*args, **kwargs):
     # load role template
     return render_template('roles/role.html', add_role=add_role,
                            form=form, title='Add Role')
+
+
+
+
+
+# The view to list all staff Views
+@aicos_members.route('/staffs')
+@login_required
+def list_staffs():
+    check_admin()
+    """
+    List all roles
+    """
+    staffs = Staff.query.filter_by(department_id=current_user.email)
+    return render_template('roles/staffs.html',
+                           staffs=staffs, title='Staffs')
+
+
+# Function for adding new role
+@aicos_members.route('/staff/add', methods=['GET', 'POST'])
+@login_required
+def add_staff(*args, **kwargs):
+    """
+    Add a role to the database
+    """
+    check_admin()
+    add_staff = True
+    form = StaffForm()
+    if form.validate_on_submit():
+        staff = Staff(
+
+                      first_name=form.firstName.data,
+                      last_name=form.lastName.data,
+                      nid=form.Nid.data,
+                      district=form.District.data,
+                      sector=form.Sector.data,
+                      sex=form.Sex.data,
+                      yob=form.Yob.data,
+                      position=form.Position.data,
+                      education=form.Education.data,
+                      telephone=form.Telephone.data,
+                      email=form.Email.data,
+                      monthly_net_salary=form.monthlyNetSalary.data,
+                      department_id = current_user.email
+                      )
+        try:
+            # add role to the database
+            db.session.add(staff)
+            db.session.commit()
+            flash('You have successfully added a new staff member.')
+        except:
+            # in case role name already exists
+            flash('Error: Staff name already exists.')
+        # redirect to the roles page
+        return redirect(url_for('aicos_members.list_staffs'))
+    # load role template
+    return render_template('roles/staff.html', add_staff=add_staff,
+                           form=form, title='Add Role')
+
+
+
+
+
+
+
+
+
+# The view to list all role Views
+@aicos_members.route('/activities')
+@login_required
+def list_activities():
+    check_admin()
+    """
+    List all roles
+    """
+    activities = Activity.query.filter_by(department_id=current_user.email)
+    return render_template('roles/activities.html',
+                           activities=activities, title='Activities')
+
+
+
+# Function for adding new role
+@aicos_members.route('/activity/add', methods=['GET', 'POST'])
+@login_required
+def add_activity(*args, **kwargs):
+    """
+    Add a role to the database
+    """
+    check_admin()
+    add_activity = True
+    form = ActivityForm()
+    if form.validate_on_submit():
+        activity = Activity(
+                            name=form.name.data,
+                            description=form.description.data,
+                            department_id = current_user.email)
+        try:
+            # add role to the database
+            db.session.add(activity)
+            db.session.commit()
+            flash('You have successfully added a new activity.')
+        except:
+            # in case role name already exists
+            flash('Error: activity name already exists.')
+        # redirect to the roles page
+        return redirect(url_for('aicos_members.list_activities'))
+    # load role template
+    return render_template('roles/activity.html', add_activity=add_activity,
+                           form=form, title='Add Role')
+
+
+
+
+
+
+
+# The view to list all role Views
+@aicos_members.route('/assets')
+@login_required
+def list_assets():
+    check_admin()
+    """
+    List all roles
+    """
+    assets = Asset.query.filter_by(department_id=current_user.email)
+    return render_template('roles/assets.html',
+                           assets=assets, title='Activities')
+
+
+
+# Function for adding new role
+@aicos_members.route('/asset/add', methods=['GET', 'POST'])
+@login_required
+def add_asset(*args, **kwargs):
+    """
+    Add a role to the database
+    """
+    check_admin()
+    add_asset = True
+    form = AssetForm()
+    if form.validate_on_submit():
+        asset = Asset(
+                            asset_type=form.assetType.data,
+                            asset_location=form.assetLocation.data,
+                            asset_value=form.assetValue.data,
+                            description=form.description.data,
+                            department_id = current_user.email)
+        try:
+            # add role to the database
+            db.session.add(asset)
+            db.session.commit()
+            flash('You have successfully added a new asset.')
+        except:
+            # in case role name already exists
+            flash('Error: asset name already exists.')
+        # redirect to the roles page
+        return redirect(url_for('aicos_members.list_assets'))
+    # load role template
+    return render_template('roles/asset.html', add_asset=add_asset,
+                           form=form, title='Add Role')
+
 
 
 
@@ -894,19 +1061,6 @@ def member_details(id):
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 # This is the view which is used to import all the members from excel sheets
 # This is the view used to import all the cooperatives from excel sheet.
 SQLALCHEMY_DATABASE_URI = 'mysql://root:annemuhiza@localhost/coop'
@@ -916,38 +1070,38 @@ def doimportmbs():
     upload_file = True
     if request.method == 'POST':
         def mbs_init_func(row):
-            m = Member(row['Id'])
+            m = Member(row['sno'])
 
-            m.id = row['Id']
-            m.firstName = row['firstName']
-            m.secondName = row['secondName']
-            m.others = row['others']
-            m.Province = row['Province']
-            m.District = row['District']
-            m.Sector = row['Sector']
-            m.Cell = row['Cell']
-            m.nId = row['nId']
-            m.entryDate = row['entryDate']
-            m.share = row['share']
-            m.exitDate = row['exitDate']
-            m.umuzungura = row['umuzungura']
-            m.umukono = row['umukono']
-            m.gender = row['gender']
-            m.dob = row['dob']
-            m.age = row['age']
-            m.phone = row['phone']
+            m.id = row['id']
+            m.sno = row['sno']
+            m.izina_ribanza = row['izina_ribanza']
+            m.izina_rikurikira = row['izina_rikurikira']
+            m.Ayandi = row['Ayandi']
+            m.Igitsina = row['Igitsina']
+            m.Indangamuntu = row['Indangamuntu']
+            m.tariki_yavukiye = row['tariki_yavukiye']
+            m.Intara = row['Intara']
+            m.Akarere = row['Akarere']
+            m.Umurenge = row['Umurenge']
+            m.Akagari = row['Akagari']
+            m.Umudugudu = row['Umudugudu']
+            m.tariki_yinjiriye = row['tariki_yinjiriye']
+            m.umugabane_ukwezi = row['umugabane_ukwezi']
+            m.Umukono = row['Umukono']
+            m.nomero_telephone = row['nomero_telephone']
             m.Amashuri = row['Amashuri']
             m.Ubumuga = row['Ubumuga']
-
-            m.marital_status = row['marital_status']
-            m.ubudehe = row['ubudehe']
-            m.insurance = row['insurance']
-            m.Language = row['Language']
-            m.member_source = row['member_source']
-            m.job = row['job']
-            m.has_children = row['has_children']
-            m.rular_or_urban = row['rular_or_urban']
-            m.is_active = row['is_active']
+            m.Arubatse = row['Arubatse']
+            m.umubare_abana = row['umubare_abana']
+            m.icyiciro_ubudehe = row['icyiciro_ubudehe']
+            m.Ubwishingizi = row['Ubwishingizi']
+            m.akazi_akora_muri_koperative = row['akazi_akora_muri_koperative']
+            m.akazi_akora_ahandi = row['akazi_akora_ahandi']
+            m.ubuso_ahingaho = row['ubuso_ahingaho']
+            m.ubwoko_igihingwa = row['ubwoko_igihingwa']
+            m.ubuso_ahingaho_ibindi = row['ubuso_ahingaho_ibindi']
+            m.ubwoko_igihingwa_kindi = row['ubwoko_igihingwa_kindi']
+            m.ubuso_budakoreshwa = row['ubuso_budakoreshwa']
             m.department_id = current_user.email
 
 
@@ -958,15 +1112,15 @@ def doimportmbs():
             #m.department_id = row['department_id']
             #c.id = row['id']
             return m
-        try:
-          request.save_book_to_database(
-              field_name='file', session=db.session,
-              tables=[Member],
-              initializers=[mbs_init_func])
+        #try:
+        request.save_book_to_database(
+            field_name='file', session=db.session,
+            tables=[Member],
+            initializers=[mbs_init_func])
           #return redirect(url_for('.handson_table'), code=302)
-          flash("Lisiti y'abanyamuryango ba Cooperative yinjiye neza muri sisiteme!")
-        except:
-          flash("The list you are uploading is not well formated, please reformat it and try again or Download the sample sheet")
+          #flash("Lisiti y'abanyamuryango ba Cooperative yinjiye neza muri sisiteme!")
+        #except:
+         # flash("The list you are uploading is not well formated, please reformat it and try again or Download the sample sheet")
         return redirect(url_for('aicos_members.aicos_members_home'), code=302)
     return render_template("employees/upload.html", 
                             add_member=add_member,
@@ -1003,46 +1157,41 @@ def AddNewMember():
     form = MemberForm()
     if form.validate_on_submit():
         NewMember = Member(
+                          izina_ribanza = form.izina_ribanzax.data,
+                          izina_rikurikira = form.izina_rikurikirax.data,
+                          Ayandi     = form.ayandix.data,
+                          Igitsina  = form.igitsinax.data,
+                          Indangamuntu  = form.indangamuntux.data,
+                          #Code          = form.code.data,
+                          tariki_yavukiye = form.tariki_yavukiyex.data,
+                          Intara = form.intarax.data,
 
-                            izinaRibanza = form.izina_ribanza.data,
-                            izinaRikurikira = form.izina_rikurikira.data,
-                            Ayandi     = form.ayandi.data,
-                            Igitsina  = form.igitsina.data,
-                            indangamuntu  = form.indangamuntu.data,
-                            Code          = form.code.data,
-                            tarikiYamavuko = form.tariki_yavukiye.data,
-                            Intara = form.intara.data,
+                          Akarere = form.akarerex.data,
+                          Umurenge     = form.umurengex.data,
+                          Akagari     = form.akagarix.data,
+                          Umudugudu     = form.umudugudux.data,
+                          tariki_yinjiriye     = form.tariki_yinjiriyex.data,
+                          umugabane_ukwezi = form.umugabanex.data,
 
-                            Akarere = form.akarere.data,
-                            Umurenge     = form.umurenge.data,
-                            Akagari     = form.akagari.data,
-                            Umudugudu     = form.umudugudu.data,
-                            tarikiYinjiriye     = form.tariki_yinjiriye.data,
-                            Umugabane = form.umugabane.data,
+                          Umukono    = form.umukonox.data,
+                          nomero_telephone  = form.nomero_ya_telephonex.data,
+                          Amashuri  = form.amashurix.data,
+                          Ubumuga  = form.ubumugax.data,
 
-                            Umukono    = form.umukono.data,
-                            nomeroYaTelephone  = form.nomero_ya_telephone.data,
-                            Amashuri  = form.amashuri.data,
-                            Ubumuga  = form.ubumuga.data,
+                          Arubatse     = form.arubatsex.data,
+                          umubare_abana     = form.umubare_wabanax.data,
+                          icyiciro_ubudehe = form.icyiciro_cyubudehex.data,
+                          Ubwishingizi    = form.ubwishingizix.data,
+                          akazi_akora_muri_koperative  = form.akazi_akora_muri_koperativex.data,
+                          akazi_akora_ahandi  = form.akandi_kazi_akorax.data,
 
-
-
-                            Arubatse     = form.arubatse.data,
-                            umubareWabana     = form.umubare_wabana.data,
-                            icyiciroCyubudehe = form.icyiciro_cyubudehe.data,
-                            Ubwishingizi    = form.ubwishingizi.data,
-                            akaziAkoraMuriCoop  = form.akazi_akora_muri_koperative.data,
-                            akandiKazi  = form.akandi_kazi_akora.data,
-
-
-                            ubusoAhingaho  = form.ubuso_ahingaho.data,
-                            ubwokoBwigihingwa  = form.ubwoko_bwigihingwa.data,
-                            ubusoAhingahoIbindi = form.ubuso_ahingaho_ibindi.data,
-
-                            
-                            ubwokoBwigihingwaKindi = form.ubwoko_bwigihingwa_kindi.data,
-                            ubusoBudakoreshwa = form.ubuso_budakoreshwa.data,
-                            department_id = current_user.email
+                          ubuso_ahingaho  = form.ubuso_ahingahox.data,
+                          ubwoko_igihingwa  = form.ubwoko_bwigihingwax.data,
+                          ubuso_ahingaho_ibindi = form.ubuso_ahingaho_ibindix.data,
+                          
+                          ubwoko_igihingwa_kindi = form.ubwoko_bwigihingwa_kindix.data,
+                          ubuso_budakoreshwa = form.ubuso_budakoreshwax.data,
+                          department_id = current_user.email
                             )
 
         notif = Notification(action="Made decision",
@@ -1389,8 +1538,8 @@ def invite_members():
     members = Employee.query.filter_by(department_id=None)
     inveted_by = Employee.query.filter_by(invited_by=current_user.email)
     #all_member = members.department_id
-    return redirect(url_for('aicos_members.list_employees'))
-    #return render_template("home/invite_members.html", members=members, title="Invite members to join the cooperative")
+    #return redirect(url_for('aicos_members.list_employees'))
+    return render_template("home/invite_members.html", members=members, title="Invite members to join the cooperative")
 
 @aicos_members.route('/member/add/<int:id>', methods=['GET', 'POST'])
 def add_member(id):

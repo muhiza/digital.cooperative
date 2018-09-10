@@ -4,10 +4,11 @@ import stripe
 from ..models import *
 from . import home
 from .forms import *
+from .forms import newDepartmentForm
 
 
 from .. import auth
-from .. auth.forms import LoginForm, RegistrationForm
+from .. auth .forms import LoginForm, RegistrationForm
 #from .. import db
 from ..models import Employee
 
@@ -50,8 +51,9 @@ def homepage():
     """
     Render the homepage template on the / route
     """
-    #return redirect(url_for('auth.login'))
-    return render_template('auth/landing_page.html', title="Welcome", pub_key=pub_key)
+    return redirect(url_for('auth.login'))
+    #return render_template('auth/landing_page.html', title="Welcome", pub_key=pub_key)
+
 
 
 """
@@ -254,9 +256,6 @@ def coopInfo(email):
     coop = Department.query.get_or_404(email)
     form = DepartmentForm(obj=coop)
     if form.validate_on_submit():
-
-
-
         #coop.Code = form.Code.data
         coop.Name = form.Name.data
         coop.regdate = form.RegDate.data
@@ -271,9 +270,8 @@ def coopInfo(email):
         coop.email         = current_user.email
         coop.is_active         = 1
         code               = form.Code.data
-
         current_user.is_coop_admin = True
-
+        current_user.department_id = current_user.email
         if form.Code.data == coop.code:        
             db.session.add(coop)
             db.session.commit()
@@ -283,7 +281,7 @@ def coopInfo(email):
         else:
             #flash('Code urimo kwinjiza ntago ihuye na Cooperative, Reba muri telephone yawe!.')
             #flash(Markup('Flashed message with <b>bold</b> statements'), 'success')
-            flash(Markup('Code urimo kwinjiza ntago ihuye na Cooperative, <b>Reba muri telephone yawe!.</b>'), 'danger')
+            flash(Markup('Code urimo kwinjiza ntago ihuye na Cooperative, <b>Wemerewe kwinjiza Code inshuro imwe!.</b>'), 'danger')
             to_number = '250780400612'
             message = 'Code ya cooperative ' + coop.Name + ' ku rubuga AICOS ni ' + coop.code
             response = client.send_message({'from' : '+250782061714', 'to' : to_number, 'text' : message })
@@ -295,29 +293,80 @@ def coopInfo(email):
 
     #form.Code.data = coop.code
     form.Name.data = coop.name
-
-
     form.RegDate.data = coop.regdate
     form.Certificate.data = coop.certificate
-
-
     form.Province.data = coop.province
     form.District.data = coop.district
-
-
     form.Sector.data = coop.sector
     form.Cell.data = coop.cell
-
     form.startingShare.data = coop.starting_share
     #form.Field.data = coop.Field
-
-
     form.Description.data = coop.description
-
-
-
     return render_template('home/coop_info.html',
                            form=form, title="Edit Role")
+
+
+
+
+
+
+
+
+
+
+@home.route('/cooperativeInfo/newApplication', methods=['GET', 'POST'])
+@login_required
+def newApplication():
+    """
+    Edit a role
+    """
+    check_admin()
+    #add_role = False
+    form = newDepartmentForm()
+    if form.validate_on_submit():
+
+        #coop.Code = form.Code.data
+        newCoop = Department(
+                        name = form.Name.data,
+                        province   = form.Province.data,
+                        district   = form.District.data,
+                        sector     = form.Sector.data,
+                        cell       = form.Cell.data,
+                        starting_share = form.startingSharex.data,
+                        share_per_person = form.sharePerPerson.data,
+                        male_members         = form.maleMembers.data,
+                        female_members         = form.femaleMembers.data,
+                        is_active         = 1,
+                        #current_user.is_coop_admin     = 1,
+                        email         = current_user.email
+                        #current_user.is_admin = 1
+                    )
+
+        try:      
+            db.session.add(newCoop)
+            current_user.is_coop_admin     = 1
+            db.session.commit()
+            #flash('Umaze kwinjiza Cooperative yawe neza.')
+            flash(Markup('Umaze kwinjiza Cooperative yawe neza., <b>Ongera winjire muri konti yawe!.</b>'), 'success')
+            return redirect(url_for('home.done'))
+        except:
+            #flash('Code urimo kwinjiza ntago ihuye na Cooperative, Reba muri telephone yawe!.')
+            #flash(Markup('Flashed message with <b>bold</b> statements'), 'success')
+            flash(Markup('Umwirondoro wa Koperative urimo gushyiramo ntago wuzuye, <b>Ongera ugerageze!.</b>'), 'danger')
+            to_number = '250780400612'
+            message = 'Code ya cooperative ku rubuga AICOS ni '
+            response = client.send_message({'from' : '+250782061714', 'to' : to_number, 'text' : message })
+            response_text = response['messages'][0]
+
+        # redirect to the roles page
+        return redirect(url_for('home.done'))
+
+
+
+
+    return render_template('home/new_coop.html',
+                           form=form, title="Edit Role")
+
 
 
 

@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: e27696b3c5f5
+Revision ID: 149ee9158d0b
 Revises: 
-Create Date: 2018-08-09 07:50:15.801997
+Create Date: 2018-09-09 17:32:33.951902
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'e27696b3c5f5'
+revision = '149ee9158d0b'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -53,8 +53,11 @@ def upgrade():
     sa.Column('coop_type', sa.String(length=200), nullable=True),
     sa.Column('category', sa.String(length=200), nullable=True),
     sa.Column('field', sa.String(length=200), nullable=True),
-    sa.Column('started_data', sa.String(length=200), nullable=True),
-    sa.Column('starting_share', sa.Integer(), nullable=True),
+    sa.Column('started_data', sa.DateTime(), nullable=True),
+    sa.Column('starting_share', sa.String(length=200), nullable=True),
+    sa.Column('share_per_person', sa.String(length=200), nullable=True),
+    sa.Column('male_members', sa.String(length=200), nullable=True),
+    sa.Column('female_members', sa.String(length=200), nullable=True),
     sa.Column('is_active', sa.Boolean(), nullable=True),
     sa.PrimaryKeyConstraint('email'),
     sa.UniqueConstraint('email')
@@ -118,13 +121,6 @@ def upgrade():
     sa.Column('duration', sa.String(length=200), nullable=True),
     sa.PrimaryKeyConstraint('id')
     )
-    op.create_table('roles',
-    sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('name', sa.String(length=60), nullable=True),
-    sa.Column('description', sa.String(length=200), nullable=True),
-    sa.PrimaryKeyConstraint('id'),
-    sa.UniqueConstraint('name')
-    )
     op.create_table('shares',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('memberId', sa.String(length=200), nullable=True),
@@ -155,6 +151,25 @@ def upgrade():
     sa.Column('firstname', sa.String(length=200), nullable=True),
     sa.Column('secondname', sa.String(length=200), nullable=True),
     sa.PrimaryKeyConstraint('id')
+    )
+    op.create_table('Assets',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('asset_type', sa.String(length=60), nullable=True),
+    sa.Column('asset_location', sa.String(length=60), nullable=True),
+    sa.Column('asset_value', sa.String(length=60), nullable=True),
+    sa.Column('description', sa.String(length=200), nullable=True),
+    sa.Column('department_id', sa.String(length=200), nullable=True),
+    sa.ForeignKeyConstraint(['department_id'], ['departments.email'], ),
+    sa.PrimaryKeyConstraint('id')
+    )
+    op.create_table('activities',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('name', sa.String(length=60), nullable=True),
+    sa.Column('description', sa.String(length=200), nullable=True),
+    sa.Column('department_id', sa.String(length=200), nullable=True),
+    sa.ForeignKeyConstraint(['department_id'], ['departments.email'], ),
+    sa.PrimaryKeyConstraint('id'),
+    sa.UniqueConstraint('name')
     )
     op.create_table('applications',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -230,41 +245,6 @@ def upgrade():
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('id')
     )
-    op.create_table('employees',
-    sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('email', sa.String(length=60), nullable=True),
-    sa.Column('username', sa.String(length=60), nullable=True),
-    sa.Column('first_name', sa.String(length=60), nullable=True),
-    sa.Column('last_name', sa.String(length=60), nullable=True),
-    sa.Column('phone_number', sa.String(length=200), nullable=True),
-    sa.Column('password_hash', sa.String(length=128), nullable=True),
-    sa.Column('department_id', sa.String(length=200), nullable=True),
-    sa.Column('role_id', sa.Integer(), nullable=True),
-    sa.Column('project_id', sa.Integer(), nullable=True),
-    sa.Column('employee_id', sa.Integer(), nullable=True),
-    sa.Column('cooperative_id', sa.Integer(), nullable=True),
-    sa.Column('is_admin', sa.Boolean(), nullable=True),
-    sa.Column('is_coop_admin', sa.Boolean(), nullable=True),
-    sa.Column('is_overall', sa.Boolean(), nullable=True),
-    sa.Column('is_invited', sa.Boolean(), nullable=True),
-    sa.Column('is_union', sa.Boolean(), nullable=True),
-    sa.Column('is_ferwacotamo', sa.Boolean(), nullable=True),
-    sa.Column('is_confederation', sa.Boolean(), nullable=True),
-    sa.Column('is_rca', sa.Boolean(), nullable=True),
-    sa.Column('invited_by', sa.String(length=200), nullable=True),
-    sa.Column('district', sa.String(length=200), nullable=True),
-    sa.ForeignKeyConstraint(['cooperative_id'], ['cooperatives.id'], ),
-    sa.ForeignKeyConstraint(['department_id'], ['departments.email'], ),
-    sa.ForeignKeyConstraint(['employee_id'], ['employees.id'], ),
-    sa.ForeignKeyConstraint(['project_id'], ['projects.id'], ),
-    sa.ForeignKeyConstraint(['role_id'], ['roles.id'], ),
-    sa.PrimaryKeyConstraint('id')
-    )
-    op.create_index(op.f('ix_employees_email'), 'employees', ['email'], unique=False)
-    op.create_index(op.f('ix_employees_first_name'), 'employees', ['first_name'], unique=False)
-    op.create_index(op.f('ix_employees_last_name'), 'employees', ['last_name'], unique=False)
-    op.create_index(op.f('ix_employees_phone_number'), 'employees', ['phone_number'], unique=False)
-    op.create_index(op.f('ix_employees_username'), 'employees', ['username'], unique=False)
     op.create_table('files',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(length=200), nullable=True),
@@ -392,41 +372,6 @@ def upgrade():
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('id')
     )
-    op.create_table('members',
-    sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('sno', sa.String(length=200), nullable=True),
-    sa.Column('izinaRibanza', sa.String(length=200), nullable=True),
-    sa.Column('izinaRikurikira', sa.String(length=200), nullable=True),
-    sa.Column('Ayandi', sa.String(length=200), nullable=True),
-    sa.Column('Igitsina', sa.String(length=200), nullable=True),
-    sa.Column('indangamuntu', sa.String(length=200), nullable=True),
-    sa.Column('tarikiYamavuko', sa.String(length=200), nullable=True),
-    sa.Column('Intara', sa.String(length=200), nullable=True),
-    sa.Column('Akarere', sa.String(length=200), nullable=True),
-    sa.Column('Umurenge', sa.String(length=200), nullable=True),
-    sa.Column('Akagari', sa.String(length=200), nullable=True),
-    sa.Column('Umudugudu', sa.String(length=200), nullable=True),
-    sa.Column('tarikiYinjiriye', sa.String(length=200), nullable=True),
-    sa.Column('Umugabane', sa.String(length=200), nullable=True),
-    sa.Column('Umukono', sa.String(length=200), nullable=True),
-    sa.Column('nomeroYaTelephone', sa.String(length=200), nullable=True),
-    sa.Column('Amashuri', sa.String(length=200), nullable=True),
-    sa.Column('Ubumuga', sa.String(length=200), nullable=True),
-    sa.Column('Arubatse', sa.String(length=200), nullable=True),
-    sa.Column('umubareWabana', sa.String(length=200), nullable=True),
-    sa.Column('icyiciroCyubudehe', sa.String(length=200), nullable=True),
-    sa.Column('Ubwishingizi', sa.String(length=200), nullable=True),
-    sa.Column('akaziAkoraMuriCoop', sa.String(length=200), nullable=True),
-    sa.Column('akandiKazi', sa.String(length=200), nullable=True),
-    sa.Column('ubusoAhingaho', sa.String(length=200), nullable=True),
-    sa.Column('ubwokoBwigihingwa', sa.String(length=200), nullable=True),
-    sa.Column('role_id', sa.Integer(), nullable=True),
-    sa.Column('department_id', sa.String(length=200), nullable=True),
-    sa.ForeignKeyConstraint(['department_id'], ['departments.email'], ),
-    sa.ForeignKeyConstraint(['role_id'], ['roles.id'], ),
-    sa.PrimaryKeyConstraint('id'),
-    sa.UniqueConstraint('id')
-    )
     op.create_table('notifications',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('action', sa.String(length=200), nullable=True),
@@ -486,6 +431,33 @@ def upgrade():
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('id')
     )
+    op.create_table('roles',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('name', sa.String(length=60), nullable=True),
+    sa.Column('description', sa.String(length=200), nullable=True),
+    sa.Column('department_id', sa.String(length=200), nullable=True),
+    sa.ForeignKeyConstraint(['department_id'], ['departments.email'], ),
+    sa.PrimaryKeyConstraint('id'),
+    sa.UniqueConstraint('name')
+    )
+    op.create_table('staffs',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('first_name', sa.String(length=60), nullable=True),
+    sa.Column('last_name', sa.String(length=60), nullable=True),
+    sa.Column('nid', sa.String(length=60), nullable=True),
+    sa.Column('district', sa.String(length=60), nullable=True),
+    sa.Column('sector', sa.String(length=60), nullable=True),
+    sa.Column('sex', sa.String(length=60), nullable=True),
+    sa.Column('yob', sa.String(length=60), nullable=True),
+    sa.Column('position', sa.String(length=60), nullable=True),
+    sa.Column('education', sa.String(length=60), nullable=True),
+    sa.Column('telephone', sa.String(length=60), nullable=True),
+    sa.Column('email', sa.String(length=60), nullable=True),
+    sa.Column('monthly_net_salary', sa.String(length=60), nullable=True),
+    sa.Column('department_id', sa.String(length=200), nullable=True),
+    sa.ForeignKeyConstraint(['department_id'], ['departments.email'], ),
+    sa.PrimaryKeyConstraint('id')
+    )
     op.create_table('trainings',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(length=200), nullable=True),
@@ -542,6 +514,79 @@ def upgrade():
     sa.Column('federation_id', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['federation_id'], ['federations.id'], ),
     sa.PrimaryKeyConstraint('id')
+    )
+    op.create_table('employees',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('email', sa.String(length=60), nullable=True),
+    sa.Column('username', sa.String(length=60), nullable=True),
+    sa.Column('first_name', sa.String(length=60), nullable=True),
+    sa.Column('last_name', sa.String(length=60), nullable=True),
+    sa.Column('phone_number', sa.String(length=200), nullable=True),
+    sa.Column('password_hash', sa.String(length=128), nullable=True),
+    sa.Column('department_id', sa.String(length=200), nullable=True),
+    sa.Column('role_id', sa.Integer(), nullable=True),
+    sa.Column('project_id', sa.Integer(), nullable=True),
+    sa.Column('employee_id', sa.Integer(), nullable=True),
+    sa.Column('cooperative_id', sa.Integer(), nullable=True),
+    sa.Column('is_admin', sa.Boolean(), nullable=True),
+    sa.Column('is_coop_admin', sa.Boolean(), nullable=True),
+    sa.Column('is_overall', sa.Boolean(), nullable=True),
+    sa.Column('is_invited', sa.Boolean(), nullable=True),
+    sa.Column('is_union', sa.Boolean(), nullable=True),
+    sa.Column('is_ferwacotamo', sa.Boolean(), nullable=True),
+    sa.Column('is_confederation', sa.Boolean(), nullable=True),
+    sa.Column('is_rca', sa.Boolean(), nullable=True),
+    sa.Column('invited_by', sa.String(length=200), nullable=True),
+    sa.Column('district', sa.String(length=200), nullable=True),
+    sa.ForeignKeyConstraint(['cooperative_id'], ['cooperatives.id'], ),
+    sa.ForeignKeyConstraint(['department_id'], ['departments.email'], ),
+    sa.ForeignKeyConstraint(['employee_id'], ['employees.id'], ),
+    sa.ForeignKeyConstraint(['project_id'], ['projects.id'], ),
+    sa.ForeignKeyConstraint(['role_id'], ['roles.id'], ),
+    sa.PrimaryKeyConstraint('id')
+    )
+    op.create_index(op.f('ix_employees_email'), 'employees', ['email'], unique=False)
+    op.create_index(op.f('ix_employees_first_name'), 'employees', ['first_name'], unique=False)
+    op.create_index(op.f('ix_employees_last_name'), 'employees', ['last_name'], unique=False)
+    op.create_index(op.f('ix_employees_phone_number'), 'employees', ['phone_number'], unique=False)
+    op.create_index(op.f('ix_employees_username'), 'employees', ['username'], unique=False)
+    op.create_table('members',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('sno', sa.String(length=200), nullable=True),
+    sa.Column('izina_ribanza', sa.String(length=200), nullable=True),
+    sa.Column('izina_rikurikira', sa.String(length=200), nullable=True),
+    sa.Column('Ayandi', sa.String(length=200), nullable=True),
+    sa.Column('Igitsina', sa.String(length=200), nullable=True),
+    sa.Column('Indangamuntu', sa.String(length=200), nullable=True),
+    sa.Column('tariki_yamavuko', sa.String(length=200), nullable=True),
+    sa.Column('Intara', sa.String(length=200), nullable=True),
+    sa.Column('Akarere', sa.String(length=200), nullable=True),
+    sa.Column('Umurenge', sa.String(length=200), nullable=True),
+    sa.Column('Akagari', sa.String(length=200), nullable=True),
+    sa.Column('Umudugudu', sa.String(length=200), nullable=True),
+    sa.Column('tariki_yinjiriye', sa.String(length=200), nullable=True),
+    sa.Column('umugabane_ukwezi', sa.String(length=200), nullable=True),
+    sa.Column('Umukono', sa.String(length=200), nullable=True),
+    sa.Column('nomero_telephone', sa.String(length=200), nullable=True),
+    sa.Column('Amashuri', sa.String(length=200), nullable=True),
+    sa.Column('Ubumuga', sa.String(length=200), nullable=True),
+    sa.Column('Arubatse', sa.String(length=200), nullable=True),
+    sa.Column('umubare_abana', sa.String(length=200), nullable=True),
+    sa.Column('icyiciro_ubudehe', sa.String(length=200), nullable=True),
+    sa.Column('Ubwishingizi', sa.String(length=200), nullable=True),
+    sa.Column('akazi_akora_muri_koperative', sa.String(length=200), nullable=True),
+    sa.Column('akazi_akora_ahandi', sa.String(length=200), nullable=True),
+    sa.Column('ubuso_ahingaho', sa.String(length=200), nullable=True),
+    sa.Column('ubwoko_igihingwa', sa.String(length=200), nullable=True),
+    sa.Column('ubuso_ahingaho_ibindi', sa.String(length=200), nullable=True),
+    sa.Column('ubwoko_igihingwa_kindi', sa.String(length=200), nullable=True),
+    sa.Column('ubuso_budakoreshwa', sa.String(length=200), nullable=True),
+    sa.Column('role_id', sa.Integer(), nullable=True),
+    sa.Column('department_id', sa.String(length=200), nullable=True),
+    sa.ForeignKeyConstraint(['department_id'], ['departments.email'], ),
+    sa.ForeignKeyConstraint(['role_id'], ['roles.id'], ),
+    sa.PrimaryKeyConstraint('id'),
+    sa.UniqueConstraint('id')
     )
     op.create_table('contributions',
     sa.Column('id', sa.Integer(), nullable=False),
@@ -607,16 +652,24 @@ def downgrade():
     op.drop_table('profiles')
     op.drop_table('motos')
     op.drop_table('contributions')
+    op.drop_table('members')
+    op.drop_index(op.f('ix_employees_username'), table_name='employees')
+    op.drop_index(op.f('ix_employees_phone_number'), table_name='employees')
+    op.drop_index(op.f('ix_employees_last_name'), table_name='employees')
+    op.drop_index(op.f('ix_employees_first_name'), table_name='employees')
+    op.drop_index(op.f('ix_employees_email'), table_name='employees')
+    op.drop_table('employees')
     op.drop_table('unions')
     op.drop_table('umusaruro')
     op.drop_table('ubugenzuzi')
     op.drop_table('trainings')
+    op.drop_table('staffs')
+    op.drop_table('roles')
     op.drop_table('reports')
     op.drop_table('products')
     op.drop_table('post')
     op.drop_table('ordes')
     op.drop_table('notifications')
-    op.drop_table('members')
     op.drop_table('loans')
     op.drop_table('links')
     op.drop_table('isanduku')
@@ -626,21 +679,16 @@ def downgrade():
     op.drop_table('howtos')
     op.drop_table('goals')
     op.drop_table('files')
-    op.drop_index(op.f('ix_employees_username'), table_name='employees')
-    op.drop_index(op.f('ix_employees_phone_number'), table_name='employees')
-    op.drop_index(op.f('ix_employees_last_name'), table_name='employees')
-    op.drop_index(op.f('ix_employees_first_name'), table_name='employees')
-    op.drop_index(op.f('ix_employees_email'), table_name='employees')
-    op.drop_table('employees')
     op.drop_table('decisions')
     op.drop_table('communications')
     op.drop_table('bankaccounts')
     op.drop_table('applytrainings')
     op.drop_table('applications')
+    op.drop_table('activities')
+    op.drop_table('Assets')
     op.drop_table('userinfo')
     op.drop_table('transactions')
     op.drop_table('shares')
-    op.drop_table('roles')
     op.drop_table('projects')
     op.drop_table('payments')
     op.drop_table('installments')

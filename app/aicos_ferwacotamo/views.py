@@ -1,9 +1,9 @@
 from flask import abort,  request, flash, redirect, render_template, url_for, jsonify
 from flask_login import current_user, login_required
-from forms import *
+from .forms import *
 #from forms import DepartmentForm, EmployeeAssignForm, RoleForm, SendSMS, 
 #ProjectForm, ClientForm, ProductForm, NewEmployee, SubscriptionPlan, ProductForm, OrderForm
-from .. auth.forms import *
+from .. auth import *
 from .. models import *
 from .. import db, api
 #from ..models import Department, Employee, Role, Project, Client, Subscription, Post, Category, Product, Decision
@@ -41,7 +41,7 @@ def check_coop_admin():
 
 @aicos_ferwacotamo.route('/')
 def ferwacotamo_dashboard():
-	return render_template('federation_dashboard.html')
+	return redirect(url_for('aicos_ferwacotamo.dashboard_overalls'))
 
 # Views for serving the overall administrator blocks.
 @aicos_ferwacotamo.route('/admin/coops/dashboard_overall')
@@ -72,7 +72,7 @@ def cooperatives_overall():
 @login_required
 def members_overall():
     #check_admin()
-    check_overall()
+    #check_overall()
     #check_coop_admin()
     employees = Member.query.all()
     departments = Department.query.all()
@@ -85,7 +85,7 @@ def members_overall():
 @login_required
 def dashboard_overalls():
     #check_admin()
-    check_overall()
+    #check_overall()
     #check_coop_admin()
     employees = Member.query.all()
     departments = Department.query.all()
@@ -123,10 +123,10 @@ def coop_details(email):
     departments = Department.query.get_or_404(email)
     employees = departments.members
     employees_count = departments.members.count()
-    employees_male = departments.members.filter_by(gender='Gabo')
-    employees_male_count = departments.members.filter_by(gender='Gabo').count()
-    employees_female = departments.members.filter_by(gender='Gole')
-    employees_female_count = departments.members.filter_by(gender='Gole').count()
+    employees_male = departments.members.filter_by(Igitsina='Gabo')
+    employees_male_count = departments.members.filter_by(Igitsina='Gabo').count()
+    employees_female = departments.members.filter_by(Igitsina='Gole')
+    employees_female_count = departments.members.filter_by(Igitsina='Gole').count()
     employees_abatarize = departments.members.filter_by(Amashuri='Abatarize')
     employees_abatarize_count = departments.members.filter_by(Amashuri='Abatarize').count()
     employees_abanza = departments.members.filter_by(Amashuri='Abanza')
@@ -147,7 +147,7 @@ def coop_details(email):
     employees_kutumva_count = departments.members.filter_by(Ubumuga='Kutumva').count()
     employees_mumutwe = departments.members.filter_by(Ubumuga='Mu mutwe')
     employees_mumutwe_count = departments.members.filter_by(Ubumuga='Mu mutwe').count()
-    male_members = departments.members.filter_by(gender='Gole').first()
+    male_members = departments.members.filter_by(Igitsina='Gole').first()
     if departments is not None:
         return render_template("overall_cooperative_details.html", departments=departments, 
         						employees=employees,
@@ -183,7 +183,7 @@ def coop_details(email):
 @aicos_ferwacotamo.route('/memberDetails/<int:id>', methods=['GET', 'POST'])
 @login_required
 def memberDetails(id):
-    check_admin()
+    #check_admin()
     employee = Member.query.get_or_404(id)
     if employee is not None:
         return render_template("overall_member_details.html", employee=employee)

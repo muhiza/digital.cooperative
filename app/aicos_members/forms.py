@@ -19,12 +19,79 @@ class RoleForm(FlaskForm):
     """
     Form for admin to add or edit a role
     """
-    name = StringField('Name', validators=[DataRequired()])
-    description = TextAreaField('Description', validators=[DataRequired()])
+    name = StringField('Amazina', validators=[DataRequired()])
+    description = TextAreaField('Ubusobanuro', validators=[DataRequired()])
+    submit = SubmitField('Injiza')
+
+
+class StaffForm(FlaskForm):
+    """
+    Form for admin to add or edit a role
+    """
+    firstName = StringField('First Name', validators=[DataRequired()])
+    lastName = StringField('Second Name', validators=[DataRequired()])
+    Nid = StringField('Nid', validators=[DataRequired()])
+    District = StringField('District', validators=[DataRequired()])
+    Sector = StringField('Sector', validators=[DataRequired()])
+    Sex = StringField('Sex', validators=[DataRequired()])
+   
+    Yob = StringField('Year of birth', validators=[DataRequired()])
+    Position = StringField('Position', validators=[DataRequired()])
+    Education = StringField('Education', validators=[DataRequired()])
+    
+    Telephone = StringField('Telephone', validators=[DataRequired()])
+    Email = StringField('Email', validators=[DataRequired()])
+    monthlyNetSalary = StringField('Monthly net salary', validators=[DataRequired()])
     submit = SubmitField('Submit')
 
 
 
+class ActivityForm(FlaskForm):
+    """
+    Form for admin to add or edit a role
+    """
+    name = StringField('Activity Name', validators=[DataRequired()])
+    description = TextAreaField('Activity Description', validators=[DataRequired()])
+    submit = SubmitField('Submit')
+
+
+
+class AssetForm(FlaskForm):
+    """
+    Form for admin to add or edit a role
+    """
+    assetType = SelectField(
+        'Ubwoko bw\'umutungo',
+        choices=[('Ikibanza', 'Ikibanza'), ('Ishyamba', 'Ishyamba'), ('Inzu', 'Inzu'), 
+                ('Amatungo', 'Amatungo'), ('Imodoka', 'Imodoka')])
+
+    assetLocation = SelectField(
+        'Aho umutungo uherereye',
+        choices=[('Akarere', 'Akarere'),('Nyarugenge', 'Nyarugenge'), 
+        ('Gasabo', 'Gasabo'), ('Kicukiro', 'Kicukiro'),
+        ('Kayonza', 'Kayonza'), ('Kirehe', 'Kirehe'),
+        ('Ngoma', 'Ngoma'), ('Bugesera', 'Bugesera'),
+        ('Nyagatare', 'Nyagatare'), ('Gatsibo', 'Gatsibo'),
+
+
+        ('Kamonyi', 'Kamonyi'), ('Ruhango', 'Ruhango'),
+        ('Muhanga', 'Muhanga'), ('Nyanza', 'Nyanza'),
+        ('Huye', 'Huye'), ('Nyaruguru', 'Nyaruguru'),
+
+        ('Rulindo', 'Rulindo'), ('Burera', 'Burera'),
+        ('Gakenke', 'Gakenke'), ('Gicumbi', 'Gicumbi'),
+        ('Musanze', 'Musanze'),
+
+
+        ('Karongi', 'Karongi'), ('Ngororero', 'Ngororero'),
+        ('Nyabihu', 'Nyabihu'), ('Nyamasheke', 'Nyamasheke'),
+
+        ('Rubavu', 'Rubavu'), ('Rusizi', 'Rusizi'),
+        ('Rutsiro', 'Rutsiro')])
+
+    assetValue = StringField('Agaciro kawo', validators=[DataRequired()])
+    description = TextAreaField('Ibindi bisobanuro', validators=[DataRequired()])
+    submit = SubmitField('Injiza')
 
 
 
@@ -69,49 +136,49 @@ class DecForm(FlaskForm):
 
 
 class MemberForm(FlaskForm):
-    izina_ribanza =  StringField("Izina ribanza", validators=[DataRequired()], render_kw={"placeholder": "Injizamo Izina ribanza"})
-    izina_rikurikira =  StringField("Izina rikurikira", validators=[DataRequired()], render_kw={"placeholder": "Injizamo Izina rikurikira"})
-    ayandi =  StringField("Ayandi (Singombwa)", render_kw={"placeholder": "Ayandi (Singombwa)"})
-    igitsina =  SelectField(
+    izina_ribanzax =  StringField("Izina ribanza", validators=[DataRequired()], render_kw={"placeholder": "Injizamo Izina ribanza", "id": "izina_ribanza"})
+    izina_rikurikirax =  StringField("Izina rikurikira", validators=[DataRequired()], render_kw={"placeholder": "Injizamo Izina rikurikira", "id": "izina_rikurikira"})
+    ayandix =  StringField("Ayandi (Singombwa)", render_kw={"placeholder": "Ayandi (Singombwa)", "id": "ayandi"})
+    igitsinax =  SelectField(
         'Igitsina',
-        choices=[('Igitsina', 'Igitsina'), ('Gabo', 'Gabo'), ('Gole', 'Gole'), ('Ibindi', 'Ibindi')])
-    indangamuntu =  StringField("Indangamuntu", validators=[DataRequired()], render_kw={"placeholder": "Injiza nomero y'indangamuntu"})
-    code =  StringField("Code", validators=[DataRequired()], render_kw={"placeholder": "Shyiramo code y'umunyamuryango"})
+        choices=[('Igitsina', 'Igitsina'), ('Gabo', 'Gabo'), ('Gore', 'Gore')])
+    indangamuntux =  IntegerField("Indangamuntu", validators=[DataRequired()], render_kw={"placeholder": "Injiza nomero y'indangamuntu", "id": "indangamuntu"})
+    codex =  StringField("Code", validators=[DataRequired()], render_kw={"placeholder": "Shyiramo code y'umunyamuryango", "id": "code"})
     
-    tariki_yavukiye =  DateField("Tariki y'amavuko", format='%Y-%m-%d', validators=[DataRequired()])
-    intara =  StringField("Intara", validators=[DataRequired()], render_kw={"placeholder": "Injiza intara"})
-    akarere =  StringField("Akarere", validators=[DataRequired()], render_kw={"placeholder": "Injiza akarere"})
-    umurenge =  StringField("Umurenge", validators=[DataRequired()], render_kw={"placeholder": "Injiza umurenge"})
-    akagari =  StringField("Akagari", validators=[DataRequired()], render_kw={"placeholder": "Injiza akagari"})
+    tariki_yavukiyex =  DateField("Tariki y'amavuko", format='%Y-%m-%d', validators=[DataRequired()])
+    intarax =  StringField("Intara", validators=[DataRequired()], render_kw={"placeholder": "Injiza intara", "id": "intara"})
+    akarerex =  StringField("Akarere", validators=[DataRequired()], render_kw={"placeholder": "Injiza akarere"})
+    umurengex =  StringField("Umurenge", validators=[DataRequired()], render_kw={"placeholder": "Injiza umurenge"})
+    akagarix =  StringField("Akagari", validators=[DataRequired()], render_kw={"placeholder": "Injiza akagari"})
     
-    umudugudu =  StringField("Umudugudu", validators=[DataRequired()], render_kw={"placeholder": "Injizamo Umudugudu"})
-    tariki_yinjiriye =  StringField("Taliki y'injiriye", validators=[DataRequired()], render_kw={"placeholder": "Injizamo Itariki umunyamuryango yinjiriye"})
-    umugabane = StringField("Umugabane", validators=[DataRequired()], render_kw={"placeholder": "Injizamo Umugabane w'umunyamuryango"})
-    umukono     =  StringField("Umukono", validators=[DataRequired()], render_kw={"placeholder": "Injizamo Umukono w'umunyamuryango"})  
-    nomero_ya_telephone = StringField("Nimero ya telephone", validators=[DataRequired()], render_kw={"placeholder": "Shyiramo numero ya telephone"})
+    umudugudux =  StringField("Umudugudu", validators=[DataRequired()], render_kw={"placeholder": "Injizamo Umudugudu", "id": "umudugudu"})
+    tariki_yinjiriyex =  DateField("Taliki y'injiriye", format='%Y-%m-%d', validators=[DataRequired()])
+    umugabanex = StringField("Umugabane", validators=[DataRequired()], render_kw={"placeholder": "Injizamo Umugabane w'umunyamuryango", "id": "umugabane"})
+    umukonox     =  StringField("Umukono", validators=[DataRequired()], render_kw={"placeholder": "Injizamo Umukono w'umunyamuryango", "id": "umukono"})  
+    nomero_ya_telephonex = StringField("Nimero ya telephone", validators=[DataRequired()], render_kw={"placeholder": "Shyiramo numero ya telephone", "id": "nomero_ya_telephone"})
     
-    amashuri = SelectField(
+    amashurix = SelectField(
         'Amashuri',
         choices=[('Amashuri', 'Amashuri'), ('Abatarize', 'Abatarize'), ('Abanza', 'Abanza'), ('Ayisumbuye', 'Ayisumbuye'), 
                  ('Kaminuza', 'Kaminuza'), ('Imyuga', 'Imyuga')])
-    ubumuga = SelectField(
+    ubumugax = SelectField(
     'Ubumuga',
     choices=[('Ubumuga', 'Ubumuga'), ('Amaguru', 'Amaguru'), ('Amaboko', 'Amaboko'), ('Kutabona', 'Kutabona'), 
              ('Kutumva', 'Kutumva'), ('Mu mutwe', 'Mu mutwe'), ('Ibindi', 'Ibindi')])
-    arubatse = SelectField(
-    'Arubatse',
+    arubatsex = SelectField(
+    'Arubatse?',
     choices=[('Arubatse', 'Arubatse'), ('Yego', 'Yego'), ('Oya', 'Oya')])
-    umubare_wabana = StringField("Umubare w'abana", validators=[DataRequired()], render_kw={"placeholder": "Shyiramo Umubare w'abana"})
-    icyiciro_cyubudehe = StringField("Icyiciro cy'ubudehe", validators=[DataRequired()], render_kw={"placeholder": "Icyiciro cy'ubudehe"})
-    ubwishingizi = StringField("Ubwishingizi", validators=[DataRequired()], render_kw={"placeholder": "Shyiramo ubwishingizi bw'umunyamuryango"})    
-    akazi_akora_muri_koperative = StringField("Akazi Akora Muri Koperative", validators=[DataRequired()], render_kw={"placeholder": "Shyiramo akazi umunyamuryango akora muri Koperative"})
-    akandi_kazi_akora = StringField("Akandi kazi akora", validators=[DataRequired()], render_kw={"placeholder": "Shyiramo Akandi kazi akora"})
-    ubuso_ahingaho  = StringField("Ubuso ahingaho icyayi", validators=[DataRequired()], render_kw={"placeholder": "Shyiramo Ubuso ahingaho icyayi"})
+    umubare_wabanax = IntegerField("Umubare w'abana", validators=[DataRequired()], render_kw={"placeholder": "Shyiramo Umubare w'abana"})
+    icyiciro_cyubudehex = StringField("Icyiciro cy'ubudehe", validators=[DataRequired()], render_kw={"placeholder": "Icyiciro cy'ubudehe"})
+    ubwishingizix = StringField("Ubwishingizi", validators=[DataRequired()], render_kw={"placeholder": "Shyiramo ubwishingizi bw'umunyamuryango"})    
+    akazi_akora_muri_koperativex = StringField("Akazi Akora Muri Koperative", validators=[DataRequired()], render_kw={"placeholder": "Shyiramo akazi umunyamuryango akora muri Koperative"})
+    akandi_kazi_akorax = StringField("Akandi kazi akora", validators=[DataRequired()], render_kw={"placeholder": "Shyiramo Akandi kazi akora"})
+    ubuso_ahingahox  = StringField("Ubuso ahingaho icyayi", validators=[DataRequired()], render_kw={"placeholder": "Shyiramo Ubuso ahingaho icyayi"})
     
-    ubwoko_bwigihingwa = StringField("Ubwoko bw'igihingwa (Icyayi)", validators=[DataRequired()], render_kw={"placeholder": "Shyiramo Ubwoko bw'igihingwa (Cy'icyayi)"})
-    ubuso_ahingaho_ibindi  = StringField("Ubuso ahingaho ibindi", validators=[DataRequired()], render_kw={"placeholder": "Shyiramo Ubuso ahingaho ibindi"})
-    ubwoko_bwigihingwa_kindi = StringField("Ubwoko bw'ikindi gihingwa", validators=[DataRequired()], render_kw={"placeholder": "Shyiramo Ubwoko bw'ikindi gihingwa ahinga"})
-    ubuso_budakoreshwa  = StringField("Ubuso budakoreshwa", validators=[DataRequired()], render_kw={"placeholder": "Shyiramo Ubuso bundi budakoreshwa"})
+    ubwoko_bwigihingwax = StringField("Ubwoko bw'igihingwa (Icyayi)", validators=[DataRequired()], render_kw={"placeholder": "Shyiramo Ubwoko bw'igihingwa (Cy'icyayi)"})
+    ubuso_ahingaho_ibindix  = StringField("Ubuso ahingaho ibindi", validators=[DataRequired()], render_kw={"placeholder": "Shyiramo Ubuso ahingaho ibindi"})
+    ubwoko_bwigihingwa_kindix = StringField("Ubwoko bw'ikindi gihingwa", validators=[DataRequired()], render_kw={"placeholder": "Shyiramo Ubwoko bw'ikindi gihingwa ahinga"})
+    ubuso_budakoreshwax  = StringField("Ubuso budakoreshwa", validators=[DataRequired()], render_kw={"placeholder": "Shyiramo Ubuso bundi budakoreshwa"})
     
 
 
@@ -122,7 +189,8 @@ class MemberForm(FlaskForm):
     #owner    =  StringField("Owner", validators=[DataRequired()])
     #owner    =  StringField("Owner", validators=[DataRequired()])
     #owner    =  StringField("Owner", validators=[DataRequired()])
-    """
+    """ 
+    
     submit      =  SubmitField('Injiza Umunyamuryango')
 
 

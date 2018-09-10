@@ -1,7 +1,7 @@
 from flask import render_template, flash, url_for, redirect
 from flask_login import login_required, current_user
 from . import aicos_trainer
-from . forms import *
+from .forms import *
 from .. models import *
 
 @aicos_trainer.route('/')

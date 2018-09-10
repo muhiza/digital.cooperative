@@ -2,7 +2,7 @@ from flask import flash, redirect, render_template, url_for
 from flask_login import login_required, login_user, logout_user, current_user
 
 from . import auth
-from forms import LoginForm, RegistrationForm, ForgetPasswordForm
+from .forms import LoginForm, RegistrationForm, ForgetPasswordForm
 from .. import db
 from ..models import Employee, Notification, Member
 from markupsafe import Markup
@@ -90,8 +90,6 @@ def login():
                 return redirect(url_for('aicos_ferwacotamo.dashboard_overalls'))
             elif employee.is_admin and employee.is_coop_admin:
                 return redirect(url_for('aicos_members.dashboard'))
-            elif employee.is_admin:
-                return redirect(url_for('home.dashboard'))
             elif employee.is_union:
             	return redirect(url_for('aicos_union.indexUnion'))
             elif employee.is_ferwacotamo:
@@ -100,6 +98,8 @@ def login():
                 return redirect(url_for('aicos_confederation.confederation_dashboard'))
             elif employee.is_rca:
                 return redirect(url_for('aicos_rca.rca_dashboard'))
+            elif employee.is_admin:
+                return redirect(url_for('home.dashboard'))
             else:
                 return redirect(url_for('aicos_members.aicos_members_home'))
 
