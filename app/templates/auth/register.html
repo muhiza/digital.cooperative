@@ -80,19 +80,20 @@
     <nav class="navbar navbar-default navbar-fixed-top" style="background-color: white;">
       <div class="container-fluid">
         <div class="navbar-header">
-          <img src="{{ url_for('static', filename='images/logos/smaller.png') }}" style="height: 45px; width: 100px; margin-top: 2px; margin-bottom: 2px;" />
+          <img src="{{ url_for('static', filename='images/logos/aicos/smaller.png') }}" style="height: 45px; width: 100px; margin-top: 2px; margin-bottom: 2px;" />
         </div> 
         <ul class="nav navbar-nav navbar-right">
           <li><a href="{{ url_for('auth.login') }}"><span class="btn-nav">KWINJIRA</span></a></li>
         </ul>
       </div>
     </nav>
+    <br><br><br>
     <div class="row" style="margin-top: 60px;">
         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4"></div>
         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4" style="text-align: center;">
             <div class="form-all">
                 <div class="form-title">
-                    <h3>KWIYANDIKISHA</h3>
+                    <h3>KWIYANDIKISHA</h3> <p><b>( Koperative )</b></p> 
                 </div>
                 <div class="form-form" style="">
                     <form method="POST" action="{{ url_for('auth.register') }}">
@@ -102,14 +103,17 @@
                         <div class="" style="margin-top: -30px;">
                           {{ wtf.form_field(form.last_name) }}
                         </div>
+
                         <div class="input-group" style="margin-top: -10px;">
                           <span class="input-group-addon" style="background-color: #e6e6e6; height: 20%"><i class="glyphicon glyphicon-user"></i></span>
                           {{ wtf.form_field(form.username) }}
                         </div>
+
                         <div class="input-group" style="margin-top: 5px;">
                           <span class="input-group-addon" style="background-color: #e6e6e6;"><i class="glyphicon glyphicon-phone"></i></span>
                           {{ wtf.form_field(form.phone_number) }}
                         </div>
+
                         <div class="input-group" style="margin-top: 5px;">
                           <span class="input-group-addon" style="background-color: #e6e6e6;"><i class="glyphicon glyphicon-envelope"></i></span>
                           {{ wtf.form_field(form.email) }}
