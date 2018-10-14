@@ -1,0 +1,385 @@
+{% import "bootstrap/utils.html" as utils %}
+{% extends "req_base.html" %}
+{% block title %} {{ title }} {% endblock %}
+{% block body %}
+<div class="container">
+  <div class="row">
+    <div class="col-md-8 text-left">
+      <h2><strong> Umusaruro w'ukwezi wa <b>{{ production.izina_ribanza }} {{ production.izina_rikurikira }}</b></strong></h2>
+
+      <!--
+      <p>Shakisha koperative yawe ushaka kwinjiza muri sisiteme ubundi 
+      ubone amakuru ayerekeyeho.</p>
+      -->
+    </div>
+    <div class="col-md-4 text-right">
+      <div class="input-group">
+          <label class="" for="sort by" style="margin-right: 5px;"><h3> Ukwezi: </h3> </label>
+          <select class="form-control">
+            <option>Amezi</option>
+            <a href="#"><option>Ukwa 1</option></a>
+            <option>Ukwa 2</option>
+            <option>Ukwa 3</option>
+            <option>Ukwa 4</option>
+            <option>Ukwa 5</option>
+            <option>Ukwa 6</option>
+            <option>Ukwa 7</option>
+            <option>Ukwa 8</option>
+            <option>Ukwa 9</option>
+            <option>Ukwa 10</option>
+            <option>Ukwa 11</option>
+            <option>Ukwa 12</option>
+          </select> &nbsp;&nbsp;
+      </div>
+    </div>
+  </div><hr>
+</div>
+<div class="container-fluid">
+  <div class="row">
+    {{ utils.flashed_messages() }}
+
+
+
+{% for pro in imisa %}
+
+    <div class="col-md-4">
+    
+    
+      <div class="card">
+        <div class="card-header" style="background-color:  #666667; border-top-right-radius: 3px; border-top-left-radius: 3px;">
+            <h4 style="color: #fff;">Amazina: <b><strong>
+            <a href="#" style="color: #fff;"> {{ production.izina_ribanza }} {{ production.izina_rikurikira }} </a></strong></b></h4>
+        </div>
+        <div class="card-body" style="font-size: 15px;">
+           <b> Taliki : </b> {{ pro.Taliki }} </b><br>
+           <b> Ibiro : </b> {{ pro.Ibiro }} </b><br>
+           <b> Igiciro : </b> {{ pro.Igiciro }} / Kg </b><br>
+           <b> Intara : </b> Uburengerazuba </b><br>
+           <b> Akarere : </b> Nyamasheke </b><br>
+           <b> Umurenge : </b> Gisakura </b><br>
+          <b>Umusaruro yagemuye : </b> 183 
+        <br>
+        </div>
+      <div class="card-footer bg-light">
+          <button class="btn btn-md" style="border-radius: 3px; background-color: #4285f4;">
+              <a href="#" style="color: #fff;">
+              <b><i class="fa fa-envelope"></i> OHEREZA </b>
+              </a>
+          </button>
+      </div>
+    </div>
+    
+  </div>
+{% endfor %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--
+<div class="col-md-4">
+      <div class="card">
+        <div class="card-header" style="background-color:  #666667; border-top-right-radius: 3px; border-top-left-radius: 3px;">
+            <h4 style="color: #fff;">Amazina: <b><strong>
+            <a href="#" style="color: #fff;"> {{ production.izina_ribanza }} {{ production.izina_rikurikira }} </a></strong></b></h4>
+        </div>
+        <div class="card-body" style="font-size: 15px;">
+           <b> Taliki : </b> 02/08/2018 </b><br>
+           <b> Intara : </b> East </b><br>
+           <b> Akarere : </b> Karongi </b><br>
+           <b> Umurenge : </b> Rubengera </b><br>
+          
+          <b>Umubare wa Kawa :</b> 800 <br>
+          <b>Umusaruro yagemuye : </b> 183 
+        <br>
+        </div>
+      <div class="card-footer bg-light">
+          <button class="btn btn-md" style="border-radius: 3px; background-color: #4285f4;">
+              <a href="#" style="color: #fff;">
+              <b><i class="fa fa-envelope"></i> OHEREZA </b>
+              </a>
+          </button>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+<div class="col-md-4">
+      <div class="card">
+        <div class="card-header" style="background-color:  #666667; border-top-right-radius: 3px; border-top-left-radius: 3px;">
+            <h4 style="color: #fff;">Amazina: <b><strong>
+            <a href="#" style="color: #fff;"> {{ production.izina_ribanza }} {{ production.izina_rikurikira }} </a></strong></b></h4>
+        </div>
+        <div class="card-body" style="font-size: 15px;">
+           <b> Taliki : </b> 02/08/2018 </b><br>
+           <b> Intara : </b> East </b><br>
+           <b> Akarere : </b> Karongi </b><br>
+           <b> Umurenge : </b> Rubengera </b><br>
+          
+          <b>Umubare wa Kawa :</b> 800 <br>
+          <b>Umusaruro yagemuye : </b> 183 
+        <br>
+        </div>
+      <div class="card-footer bg-light">
+          <button class="btn btn-md" style="border-radius: 3px; background-color: #4285f4;">
+              <a href="#" style="color: #fff;">
+              <b><i class="fa fa-envelope"></i> OHEREZA </b>
+              </a>
+          </button>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+<div class="col-md-4">
+      <div class="card">
+        <div class="card-header" style="background-color:  #666667; border-top-right-radius: 3px; border-top-left-radius: 3px;">
+            <h4 style="color: #fff;">Amazina: <b><strong>
+            <a href="#" style="color: #fff;"> {{ production.izina_ribanza }} {{ production.izina_rikurikira }} </a></strong></b></h4>
+        </div>
+        <div class="card-body" style="font-size: 15px;">
+           <b> Taliki : </b> 02/08/2018 </b><br>
+           <b> Intara : </b> East </b><br>
+           <b> Akarere : </b> Karongi </b><br>
+           <b> Umurenge : </b> Rubengera </b><br>
+          
+          <b>Umubare wa Kawa :</b> 800 <br>
+          <b>Umusaruro yagemuye : </b> 183 
+        <br>
+        </div>
+      <div class="card-footer bg-light">
+          <button class="btn btn-md" style="border-radius: 3px; background-color: #4285f4;">
+              <a href="#" style="color: #fff;">
+              <b><i class="fa fa-envelope"></i> OHEREZA </b>
+              </a>
+          </button>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+<div class="col-md-4">
+      <div class="card">
+        <div class="card-header" style="background-color:  #666667; border-top-right-radius: 3px; border-top-left-radius: 3px;">
+            <h4 style="color: #fff;">Amazina: <b><strong>
+            <a href="#" style="color: #fff;"> {{ production.izina_ribanza }} {{ production.izina_rikurikira }} </a></strong></b></h4>
+        </div>
+        <div class="card-body" style="font-size: 15px;">
+           <b> Taliki : </b> 02/08/2018 </b><br>
+           <b> Intara : </b> East </b><br>
+           <b> Akarere : </b> Karongi </b><br>
+           <b> Umurenge : </b> Rubengera </b><br>
+          
+          <b>Umubare wa Kawa :</b> 800 <br>
+          <b>Umusaruro yagemuye : </b> 183 
+        <br>
+        </div>
+      <div class="card-footer bg-light">
+          <button class="btn btn-md" style="border-radius: 3px; background-color: #4285f4;">
+              <a href="#" style="color: #fff;">
+              <b><i class="fa fa-envelope"></i> OHEREZA </b>
+              </a>
+          </button>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="col-md-4">
+      <div class="card">
+        <div class="card-header" style="background-color:  #666667; border-top-right-radius: 3px; border-top-left-radius: 3px;">
+            <h4 style="color: #fff;">Amazina: <b><strong>
+            <a href="#" style="color: #fff;"> {{ production.izina_ribanza }} {{ production.izina_rikurikira }} </a></strong></b></h4>
+        </div>
+        <div class="card-body" style="font-size: 15px;">
+           <b> Taliki : </b> 02/08/2018 </b><br>
+           <b> Intara : </b> East </b><br>
+           <b> Akarere : </b> Karongi </b><br>
+           <b> Umurenge : </b> Rubengera </b><br>
+          
+          <b>Umubare wa Kawa :</b> 800 <br>
+          <b>Umusaruro yagemuye : </b> 183 
+        <br>
+        </div>
+      <div class="card-footer bg-light">
+          <button class="btn btn-md" style="border-radius: 3px; background-color: #4285f4;">
+              <a href="#" style="color: #fff;">
+              <b><i class="fa fa-envelope"></i> OHEREZA </b>
+              </a>
+          </button>
+      </div>
+    </div>
+  </div>
+
+
+-->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<style>
+.pagination {
+    display: inline-block;
+}
+
+.pagination a {
+    color: black;
+    float: left;
+    padding: 8px 16px;
+    text-decoration: none;
+}
+
+.pagination a.active {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.pagination a:hover:not(.active) {background-color: #ddd;}
+</style> 
+<div class="container-fluid text-center"><br><br>
+  <div class="pagination" style="background-color: #f2f2f2; font-size: 20px;">
+  <a href="#">&laquo;</a>
+
+      
+      <a href="#"> &nbsp; &nbsp;</a>
+
+
+  <a href="#">&raquo;</a>
+  </div>
+
+  </div>
+</div>
+</div>
+
+<br><br>
+<br><br>
+<br><br>
+<br><br>
+
+{% endblock %}
+
+
+
+
+

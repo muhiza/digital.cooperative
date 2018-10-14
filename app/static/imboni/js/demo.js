@@ -41,23 +41,38 @@ $(document).ready(function () {
         new Chart(barChart, {
             type: 'bar',
             data: {
-                labels: ["Muhiza", "Female", "Youth", "Disabilities", "Others"],
+                labels: ["Jan", "Feb", "March", "April", "May", "Jun", "July", "Aug", "Sept", "Oct", "Nov", "Dec"],
                 datasets: [{
-                    label: '# of Votes',
-                    data: [12, 19, 3, 5, 2, 3],
+                    label: '# of Production',
+                    data: [16, 14, 3, 5, 2, 3, 7, 14, 11, 9, 15],
                     backgroundColor: [
+                        'rgba(253, 178, 68, 0.5)',
+                        'rgba(244, 88, 70, 0.5)',
+                        'rgba(33, 150, 243, 0.5)',
+                        'rgba(0, 188, 212, 0.5)',
+                        'rgba(42, 185, 127, 0.5)',
+                        'rgba(253, 178, 68, 0.5)',
+                        'rgba(253, 178, 68, 0.5)',
                         'rgba(244, 88, 70, 0.5)',
                         'rgba(33, 150, 243, 0.5)',
                         'rgba(0, 188, 212, 0.5)',
                         'rgba(42, 185, 127, 0.5)',
                         'rgba(253, 178, 68, 0.5)'
+                                               
                     ],
                     borderColor: [
+                        '#fdb244',
+                        '#2196F3',
+                        '#00BCD4',
+                        '#2ab97f',
+                        '#fdb244',
+                        '#fdb244',
                         '#F45846',
                         '#2196F3',
                         '#00BCD4',
                         '#2ab97f',
-                        '#fdb244'
+                        '#fdb244',
+                        '#F45846'
                     ],
                     borderWidth: 1
                 }]

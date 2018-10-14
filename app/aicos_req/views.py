@@ -339,57 +339,46 @@ def isandukuAdd():
 # Umusaruro views are here.
 @aicos_req.route('/cooperative/Umusaruro')
 def umusaruroList():
-    umusaruro = Umusaruro.query.all()
-    return render_template("accountingBooks/umusaruro/umusaruroList.html", umusaruro=umusaruro, title="List y'umusaruro winjiye")
+    membersx = Member.query.all()
+    imisaruro = Umusaruro.query.all()
+    return render_template("accountingBooks/umusaruro/umusaruroList.html", 
+        membersx=membersx, imisaruro=imisaruro, title="List y'umusaruro winjiye")
 
 
 
-@aicos_req.route('/cooperative/add/Umusaruro', methods=['GET', 'POST'])
+
+
+@aicos_req.route('/cooperative/add/Umusaruro/<int:id>', methods=['GET', 'POST'])
 @login_required
-def umusaruroAdd():
+def umusaruroAdd(id):
     check_admin()
-    form = umusaruroForm()
+
+    umusaruro = Member.query.get_or_404(id)
+    #umusa     = umusaruro.imisaruro
+    form = umusaruroForm(obj=umusaruro)
+
     if form.validate_on_submit():
-        umusaruro = Umusaruro(
-                        Amazina=form.Amazina.data,
-                        Taliki=form.Taliki.data,
-                        Uwagemuye=form.Uwagemuye.data,
-                        Ibiro   = form.Ibiro.data,
-                        Igiciro   = form.Igiciro.data,
-                        IkiguziCyose   = form.IkiguziCyose.data,
-                        amafarangaYishyuweKuKiro   = form.amafarangaYishyuweKuKiro.data,
-                        done_by   = form.done_by.data,
-                        done_to   = form.done_to.data,
-                        department_id = current_user.email
-                        )
+        umusaruro.izina_ribanza = form.Amazina.data
 
-
-
-        notif = Notification(action="Communication",
-                            done_by=current_user.username,
-                            done_from=IP,
-                            done_time = "frank",
-                            done_to="tapayi",
-                            effect = "system upgraded",
-                            department_id = current_user.email)
-        try:
-            """
-            to_number = '+250786012383'
-            message = current_user.email + ' Decision has made and you are concerned'
-            response = client.send_message({'from' : '+250786012383', 'to' : to_number, 'text' : message })
-            response_text = response['messages'][0]
-            """
-
-            db.session.add(umusaruro)
-            db.session.add(notif)
-            db.session.commit()
-            flash("Winjije neza umusaruro muri Cooperative")
-        except:
-            flash("Error! Invalid information")
+        umu = Umusaruro (
+                Ibiro = form.Ibiro.data,
+                Igiciro = form.Igiciro.data,
+                Taliki  = form.Taliki.data,
+                members_id = umusaruro.id
+            )
+        #umusaruro.Ibi = form.Ibiro.data
+        #umusaruro.izina_ribanza = form.Igiciro.data
+        db.session.add(umusaruro)
+        db.session.add(umu)
+        db.session.commit()
+        flash('Umusaruro winjiye neza muri system.')
+        # redirect to the roles page
         return redirect(url_for('aicos_req.umusaruroList'))
+
+    form.Amazina.data = umusaruro.izina_ribanza
+    #form.Igiciro.data = umusaruro.id
+    #form.Ibiro.data = umusaruro.id
     return render_template("accountingBooks/umusaruro/umusaruro.html", form=form, title="Kongera umusaruro muri Cooperative.")
-
-
 
 
 
@@ -471,3 +460,23 @@ def bankHistory():
 @aicos_req.route('/cooperatives/accountingBook/signatories')
 def signatories():
     return render_template('accountingBooks/bankHistory/signatories.html')
+
+
+
+
+
+
+
+
+
+@aicos_req.route('/productionDetails/<int:id>', methods=['GET', 'POST'])
+@login_required
+def productionDetails(id):
+    check_admin()
+    production = Member.query.get_or_404(id)
+    imisa = production.imisaruro
+    #motos = employee.motos
+    if production is not None:
+        return render_template("accountingBooks/umusaruro/production_details.html", imisa=imisa, production=production)
+    return redirect(url_for('aicos_members.aicos_members_home'))
+

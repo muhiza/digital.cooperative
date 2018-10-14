@@ -628,15 +628,15 @@ class Member(db.Model):
 	ubwoko_igihingwa_kindi			  =  db.Column(db.String(200))
 	ubuso_budakoreshwa			  = db.Column(db.String(200))
 
+	imisaruro         = db.relationship('Umusaruro', backref='member', lazy='dynamic')
+	role_id 		  = db.Column(db.Integer, db.ForeignKey('roles.id'))
+	department_id     = db.Column(db.String(200), db.ForeignKey('departments.email'))
 
-
-	role_id = db.Column(db.Integer, db.ForeignKey('roles.id'))
-	department_id = db.Column(db.String(200), db.ForeignKey('departments.email'))
-
-	""" We will always use this __init__ function to upload excel file  
+	 
 	def __init__(self, sno):
 		self.id = id
 		self.sno = sno
+	""" We will always use this __init__ function to upload excel file 
 	"""
 
 	"""
@@ -1159,13 +1159,14 @@ class Umusaruro(db.Model):
 	Amazina = db.Column(db.String(200))
 	Taliki = db.Column(db.String(200))
 	Uwagemuye = db.Column(db.String(200))
-	Ibiro    = db.Column(db.String(200))
-	Igiciro = db.Column(db.String(200))
-	IkiguziCyose = db.Column(db.String(200))
-	amafarangaYishyuweKuKiro   = db.Column(db.String(200))
+	Ibiro    = db.Column(db.Integer)
+	Igiciro = db.Column(db.Integer)
+	IkiguziCyose = db.Column(db.Integer)
+	amafarangaYishyuweKuKiro   = db.Column(db.Integer)
 	done_by   = db.Column(db.String(200))
 	done_to   = db.Column(db.String(200))
 	on_market = db.Column(db.Boolean, default=False)
+	members_id = db.Column(db.Integer, db.ForeignKey('members.id'))
 	department_id = db.Column(db.String(200), db.ForeignKey('departments.email'))
 
 	def __repr__(self):
@@ -1261,4 +1262,147 @@ class userInfo(db.Model):
 
 	def __repr__(self):
 		return '<userInfo: {}>'.format(self.firstname)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+class stockYear(db.Model):
+	__tablename__ = "stockyears"
+	id = db.Column(db.Integer, primary_key=True)
+	sn = db.Column(db.String(200))
+	Cooperative = db.Column(db.String(200))
+	Ukwezi      = db.Column(db.String(200))
+	Ibiro       = db.Column(db.String(200))
+	Igiciro     = db.Column(db.String(200))
+	ikiguziCyose= db.Column(db.String(200))
+	frwKg       = db.Column(db.String(200))
+	Isoko       = db.Column(db.String(200))
+
+	def __repr__(self):
+		return '<stockYear: {}>'.format(self.Ukwezi)
 

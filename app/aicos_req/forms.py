@@ -133,17 +133,49 @@ class MemberForm(FlaskForm):
 
 class umusaruroForm(FlaskForm):
     
-    Amazina =  StringField("Amazina y'umusaruro winjiye", validators=[DataRequired()])
+    Amazina =  StringField("Amazina ya nyirawo", validators=[DataRequired()])
     Taliki = DateField("Tariki winjiriyeho",format='%Y-%m-%d', validators=[DataRequired()])
-    Uwagemuye    =  StringField("Amazina y'uwagemuye umusaruro", validators=[DataRequired()])
-    Ibiro  =  StringField("Ingano y'ibiro byagemuwe", validators=[DataRequired()])
-    Igiciro  =  StringField("Igiciro byagemuweho", validators=[DataRequired()])
-    IkiguziCyose  =  StringField("Ikiguzi cyose cyatanzwe", validators=[DataRequired()])
-    amafarangaYishyuweKuKiro  =  StringField("Amafaranga yatanzwe ku kiro ", validators=[DataRequired()])
-    done_by  =  StringField("Umukono / Uyakiriye", validators=[DataRequired()])
-    done_to  =  StringField("Umukono / Uwagemuye", validators=[DataRequired()])
+    #Uwagemuye    =  StringField("Amazina y'uwagemuye umusaruro", validators=[DataRequired()])
+    Ibiro  =  StringField("Ingano y'ibiro byagemuwe", validators=[DataRequired()], render_kw={"placeholder": "Injiza ibiro byagemuwe"})
+    Igiciro  =  StringField("Igiciro byagemuweho", validators=[DataRequired()], render_kw={"placeholder": "Injizamo Igiciro ku kiro"})
+    #IkiguziCyose  =  StringField("Ikiguzi cyose cyatanzwe", validators=[DataRequired()])
+    #amafarangaYishyuweKuKiro  =  StringField("Amafaranga yatanzwe ku kiro ", validators=[DataRequired()])
+    done_by  =  StringField("Umukono / Uyakiriye", validators=[DataRequired()], render_kw={"placeholder": "Injizamo Uwakiriye"})
+    done_to  =  StringField("Umukono / Uwagemuye", validators=[DataRequired()], render_kw={"placeholder": "Injizamo Umagemuye"})
     #department_id  =  StringField("Department Id", validators=[DataRequired()])
     submit      =  SubmitField('Emeza')
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 class ibitaboBankForm(FlaskForm):
